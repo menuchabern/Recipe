@@ -1,3 +1,5 @@
+using CPUFramework;
+
 namespace RecipeWinForms
 {
     internal static class Program
@@ -11,7 +13,8 @@ namespace RecipeWinForms
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
-            Application.Run(new Form1());
+            SQLUtility.ConnectionString = "Server=tcp:dev-mb.database.windows.net,1433;Initial Catalog=RecipeDB;Persist Security Info=False;User ID=devmbadmin;Password=HELlo111;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+            Application.Run(new frmSearchRecipes());
         }
     }
 }
