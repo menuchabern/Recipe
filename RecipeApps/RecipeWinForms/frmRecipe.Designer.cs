@@ -117,6 +117,7 @@
             txtRecipeName.Font = new Font("Segoe UI", 12F);
             txtRecipeName.Location = new Point(276, 27);
             txtRecipeName.Name = "txtRecipeName";
+            txtRecipeName.ReadOnly = true;
             txtRecipeName.Size = new Size(239, 34);
             txtRecipeName.TabIndex = 4;
             // 
@@ -126,6 +127,7 @@
             txtUserName.Font = new Font("Segoe UI", 12F);
             txtUserName.Location = new Point(276, 115);
             txtUserName.Name = "txtUserName";
+            txtUserName.ReadOnly = true;
             txtUserName.Size = new Size(239, 34);
             txtUserName.TabIndex = 5;
             // 
@@ -135,6 +137,7 @@
             txtCalories.Font = new Font("Segoe UI", 12F);
             txtCalories.Location = new Point(276, 203);
             txtCalories.Name = "txtCalories";
+            txtCalories.ReadOnly = true;
             txtCalories.Size = new Size(239, 34);
             txtCalories.TabIndex = 6;
             // 
@@ -144,6 +147,7 @@
             txtRecipeStatus.Font = new Font("Segoe UI", 12F);
             txtRecipeStatus.Location = new Point(276, 292);
             txtRecipeStatus.Name = "txtRecipeStatus";
+            txtRecipeStatus.ReadOnly = true;
             txtRecipeStatus.Size = new Size(239, 34);
             txtRecipeStatus.TabIndex = 7;
             // 
