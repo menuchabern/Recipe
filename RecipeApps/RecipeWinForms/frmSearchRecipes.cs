@@ -26,7 +26,7 @@ namespace RecipeWinForms
 
         private void BtnSearch_Click(object? sender, EventArgs e)
         {
-            string sql = "select r.RecipeID, r.RecipeName, u.username,r.Calories, r.RecipeStatus from Recipe r join UserName u on u.UserNameID = r.UserNameID where r.lastname = '%" + txtRecipeName.Text + "%'";
+            string sql = "select r.RecipeID, r.RecipeName, UserName = u.FirstName + ' ' + u.LastName, r.Calories, r.RecipeStatus from Recipe r join UserName u on u.UserNameID = r.UserNameID where r.recipename like '%" + txtRecipeName.Text + "%'";
             DataTable dt = SQLUtility.GetDataTable(sql);
             gRecipeResults.DataSource = dt;
             gRecipeResults.Columns["RecipeID"].Visible = false;
@@ -36,7 +36,7 @@ namespace RecipeWinForms
         {
             int id = (int)gRecipeResults.Rows[e.RowIndex].Cells["RecipeID"].Value;
             frmRecipe frmrecipe = new frmRecipe();
-            frmrecipe.ShowResultForm(id);
+            frmrecipe.ShowResultsForm(id);
         }
 
         private void FormatGrid()

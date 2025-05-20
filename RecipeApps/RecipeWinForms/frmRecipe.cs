@@ -10,14 +10,14 @@ namespace RecipeWinForms
             InitializeComponent();
         }
 
-        public void ShowResultForm(int id)
+        public void ShowResultsForm(int id)
         {
-            string sql = "select p.recipename, u.username, p.calories, p.recipestatus from recipe r join username u on p.usernameid = u.usernameid where r.recipe id = " + id;
+            string sql = "select r.recipename, u.username, r.calories, r.recipestatus from recipe r join username u on r.usernameid = u.usernameid where r.recipeid =" + id.ToString();
             DataTable dt = SQLUtility.GetDataTable(sql);
             txtRecipeName.DataBindings.Add("Text", dt, "RecipeName");
             txtUserName.DataBindings.Add("Text", dt, "UserName");
             txtCalories.DataBindings.Add("Text", dt, "Calories");
-            txtRecipeStatus.DataBindings.Add("Text", dt, "Calories");
+            txtRecipeStatus.DataBindings.Add("Text", dt, "RecipeStatus");
             this.Show();
         }
     }
