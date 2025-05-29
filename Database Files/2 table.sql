@@ -28,9 +28,9 @@ go
 
 create table dbo.Cuisine (
     CuisineID int not null identity primary key,
-    CuisineType varchar(30) not null 
-        constraint ck_CuisineType_cannot_be_blank check(CuisineType <> '') 
-        constraint u_CuisineType unique 
+    Cuisine varchar(30) not null 
+        constraint ck_Cuisine_cannot_be_blank check(Cuisine <> '') 
+        constraint u_Cuisine unique 
 )
 go
 

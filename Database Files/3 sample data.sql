@@ -23,7 +23,7 @@ union select 'Ava', 'Smith', 'AS'
 union select 'Mary', 'Jones', 'Jam'
 union select 'Pat', 'Johnson', 'Pat'
 
-insert Cuisine(CuisineType)
+insert Cuisine(Cuisine)
 select 'American'
 union select 'English'
 union select 'French'
@@ -99,7 +99,7 @@ insert Recipe (CuisineID, UserNameID, RecipeName, Calories, DateDrafted, DatePub
 select c.CuisineID, un.UserNameID, x.RecipeName, x.Calories, x.DateDrafted, x.DatePublished, x.DateArchived
 from x 
 join Cuisine c 
-on x.Cuisine = c.CuisineType
+on x.Cuisine = c.Cuisine
 join UserName un 
 on un.UserName = x.UserName
 
