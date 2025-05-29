@@ -1,14 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Net.NetworkInformation;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using System.Data;
 using CPUFramework;
+using CPUWindowsFormsFramework;
 
 namespace RecipeWinForms
 {
@@ -18,11 +10,22 @@ namespace RecipeWinForms
         {
             SQLUtility.ConnectionString = "Server=tcp:dev-mb.database.windows.net,1433;Initial Catalog=RecipeDB;Persist Security Info=False;User ID=devmbadmin;Password=HELlo111;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
             InitializeComponent();
-            FormatGrid();
+            WindowsFormsUtility.FormatGridForSearchResult(gRecipeResults);
             btnSearch.Click += BtnSearch_Click;
             gRecipeResults.CellDoubleClick += GRecipeResults_CellDoubleClick;
+            btnNew.Click += BtnNew_Click;
         }
 
+        private void ShowPresidentForm(int rowindex)
+        {
+            int id = 0;
+            if (rowindex > -1)
+            {
+                id = (int)gRecipeResults.Rows[rowindex].Cells["RecipeID"].Value;
+            }
+            frmRecipe frmrecipe = new frmRecipe();
+            frmrecipe.ShowResultsForm(id);
+        }
 
         private void BtnSearch_Click(object? sender, EventArgs e)
         {
@@ -34,17 +37,12 @@ namespace RecipeWinForms
 
         private void GRecipeResults_CellDoubleClick(object? sender, DataGridViewCellEventArgs e)
         {
-            int id = (int)gRecipeResults.Rows[e.RowIndex].Cells["RecipeID"].Value;
-            frmRecipe frmrecipe = new frmRecipe();
-            frmrecipe.ShowResultsForm(id);
+            ShowPresidentForm(e.RowIndex);
         }
 
-        private void FormatGrid()
+        private void BtnNew_Click(object? sender, EventArgs e)
         {
-            gRecipeResults.AllowUserToAddRows = false;
-            gRecipeResults.ReadOnly = true;
-            gRecipeResults.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
-            gRecipeResults.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            ShowPresidentForm(-1);
         }
     }
 }
