@@ -8,7 +8,6 @@ namespace RecipeWinForms
     {
         public frmSearchRecipes()
         {
-            SQLUtility.ConnectionString = "Server=tcp:dev-mb.database.windows.net,1433;Initial Catalog=RecipeDB;Persist Security Info=False;User ID=devmbadmin;Password=HELlo111;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
             InitializeComponent();
             WindowsFormsUtility.FormatGridForSearchResult(gRecipeResults);
             btnSearch.Click += BtnSearch_Click;
@@ -29,8 +28,7 @@ namespace RecipeWinForms
 
         private void BtnSearch_Click(object? sender, EventArgs e)
         {
-            string sql = "select r.RecipeID, r.RecipeName, UserName = u.FirstName + ' ' + u.LastName, r.Calories, r.RecipeStatus from Recipe r join UserName u on u.UserNameID = r.UserNameID where r.recipename like '%" + txtRecipeName.Text + "%'";
-            DataTable dt = SQLUtility.GetDataTable(sql);
+            DataTable dt = Recipe.SearchRecipe(txtRecipeName.Text);
             gRecipeResults.DataSource = dt;
             gRecipeResults.Columns["RecipeID"].Visible = false;
         }
