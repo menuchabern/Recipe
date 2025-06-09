@@ -16,7 +16,7 @@ namespace RecipeTest
         public void InsertNewRecipe(string recipename, int calories, DateTime datedrafted)
         {
             DataTable dtfordelete = SQLUtility.GetDataTable("select * from recipe where recipename like 'test%'");
-            if (dtfordelete.Rows.Count >= 0)
+            if (dtfordelete.Rows.Count > 0)
             {
                 Recipe.Delete(dtfordelete);
             }
