@@ -49,7 +49,6 @@ create table dbo.Recipe(
         else 'Archived' end,
     constraint ck_DateDrafted_must_be_before_DatePublished check (DateDrafted < DatePublished),
     constraint ck_DatePublished_must_be_before_DateArchived check(DatePublished <= DateArchived),
---AS Change to less than or equal
-    constraint ck_DateDrafted_must_be_before_DateArchived check(DateDrafted < DateArchived)
+    constraint ck_DateDrafted_must_be_before_DateArchived check(DateDrafted <= DateArchived)
 )
 go
