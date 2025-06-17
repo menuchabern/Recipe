@@ -1,3 +1,5 @@
+using Microsoft.VisualBasic.ApplicationServices;
+using RecipeSystem;
 using System.Data;
 
 namespace RecipeTest
@@ -7,7 +9,7 @@ namespace RecipeTest
         [SetUp]
         public void Setup()
         {
-            DBManager.SetConnectionString("Server=.\\SQLExpress;Database=RecipeDB;Trusted_Connection=True;TrustServerCertificate=True;");
+            DBManager.SetConnectionString("Server=tcp:dev-mb.database.windows.net,1433;Initial Catalog=RecipeDB;Persist Security Info=False;User ID=devmbadmin;Password=HELlo111;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
         }
 
         [Test]
@@ -123,7 +125,7 @@ namespace RecipeTest
         [Test]
         public void SearchRecipe()
         {
-            string criteria = "c";
+            string criteria = "t";
             int numrecipes = SQLUtility.GetFirstColumnFirstRowValue("select total = count(*) from recipe where recipename like '%" + criteria + "%'");
             Assume.That(numrecipes > 0, "there are no recipes that match the search for " + criteria);
             TestContext.WriteLine(numrecipes + " recipes that match " + criteria);
