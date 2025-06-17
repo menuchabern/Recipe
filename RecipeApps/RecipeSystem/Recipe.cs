@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using Microsoft.Data.SqlClient;
+using System.Data;
 using System.Diagnostics;
 
 namespace RecipeSystem
@@ -7,17 +8,18 @@ namespace RecipeSystem
     {
         public static DataTable SearchRecipe(string recipename)
         {
-            string sql = "select r.RecipeID, r.RecipeName, UserName = u.FirstName + ' ' + u.LastName, r.Calories, r.RecipeStatus from Recipe r join UserName u on u.UserNameID = r.UserNameID where r.recipename like '%" + recipename + "%'";
-            DataTable dt = SQLUtility.GetDataTable(sql);
+            SqlCommand cmd = SQLUtility.GetSQLCommand("recipeget");
+            cmd.Parameters["@RecipeName"].Value = recipename;
+            DataTable dt = SQLUtility.GetDataTable(cmd);
             return dt;
         }
 
         public static DataTable LoadRecipe(int recipeid)
         {
-            string sql = "select r.recipeid, r.cuisineid, r.usernameid, r.recipename, u.username, r.calories, r.recipestatus, r.datedrafted, r.datearchived, r.datepublished, c.cuisine "
-                + "from recipe r join username u on r.usernameid = u.usernameid join cuisine c on c.cuisineid = r.cuisineid where r.recipeid = "
-                + recipeid.ToString();
-            return SQLUtility.GetDataTable(sql);
+            SqlCommand cmd = SQLUtility.GetSQLCommand("recipeget");
+            cmd.Parameters["@Recipeid"].Value = recipeid;
+            DataTable dt = SQLUtility.GetDataTable(cmd);
+            return SQLUtility.GetDataTable(cmd);
         }
 
         public static void Save(DataTable dtrecipe)
@@ -54,12 +56,20 @@ namespace RecipeSystem
 
         public static DataTable GetUserNameList()
         {
-            return SQLUtility.GetDataTable("select UserNameID, UserName from UserName");
+            DataTable dt = new();
+            SqlCommand cmd = SQLUtility.GetSQLCommand("UserNameGet");
+            cmd.Parameters["@All"].Value = 1;
+            dt = SQLUtility.GetDataTable(cmd);
+            return dt;
         }
 
         public static DataTable GetCuisineList()
         {
-            return SQLUtility.GetDataTable("select CuisineID, Cuisine from Cuisine");
+            DataTable dt = new();
+            SqlCommand cmd = SQLUtility.GetSQLCommand("CuisineGet");
+            cmd.Parameters["@All"].Value = 1;
+            dt = SQLUtility.GetDataTable(cmd);
+            return dt;
         }
     }
 }
