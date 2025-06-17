@@ -7,7 +7,7 @@ namespace RecipeTest
         [SetUp]
         public void Setup()
         {
-            DBManager.SetConnectionString("Server=tcp:dev-mb.database.windows.net,1433;Initial Catalog=RecipeDB;Persist Security Info=False;User ID=devmbadmin;Password=HELlo111;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
+            DBManager.SetConnectionString("Server=.\\SQLExpress;Database=RecipeDB;Trusted_Connection=True;TrustServerCertificate=True;");
         }
 
         [Test]
@@ -118,6 +118,21 @@ namespace RecipeTest
 
             Assert.IsTrue(dtlist.Rows.Count == countlist, "number of rows returned by app is " + dtlist.Rows.Count + ") <> " + countlist);
             TestContext.WriteLine("app returned " + dtlist.Rows.Count + " rows");
+        }
+
+        [Test]
+        public void SearchRecipe()
+        {
+            string criteria = "c";
+            int numrecipes = SQLUtility.GetFirstColumnFirstRowValue("select total = count(*) from recipe where recipename like '%" + criteria + "%'");
+            Assume.That(numrecipes > 0, "there are no recipes that match the search for " + criteria);
+            TestContext.WriteLine(numrecipes + " recipes that match " + criteria);
+            TestContext.WriteLine("ensure that recipe search returns " + numrecipes + "rows");
+
+            DataTable dt = Recipe.SearchRecipe(criteria);
+            int results = dt.Rows.Count;
+            Assert.IsTrue(results == numrecipes, "results of recipes search does not match number of recipe " + results + " <> " + numrecipes);
+            TestContext.WriteLine("number of rows returned by recipes search is " + results);
         }
 
         private int GetRandomExistingRecipeID()
