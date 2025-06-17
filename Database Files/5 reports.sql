@@ -167,7 +167,7 @@ on cr.CookbookID = c.CookbookID
 where c.CookbookName = 'Healthy Habits'
 group by c.CookbookName, un.UserName, c.DateCreated, c.Price, c.PictureName
 
-select r.RecipeName, ci.CuisineType, NumOfIngredients = count( distinct ri.ingredientid), NumOfSteps = count( distinct rs.RecipeStepsID)
+select r.RecipeName, ci.Cuisine, NumOfIngredients = count( distinct ri.ingredientid), NumOfSteps = count( distinct rs.RecipeStepsID)
 from Cookbook c 
 join CookbookRecipe cr 
 on cr.CookbookID = c.CookbookID
@@ -180,7 +180,7 @@ on ri.RecipeID = r.RecipeID
 join RecipeSteps rs 
 on rs.RecipeID = r.RecipeID
 where c.CookbookName = 'Healthy Habits'
-group by r.RecipeName, ci.CuisineType, cr.recipesequence
+group by r.RecipeName, ci.Cuisine, cr.recipesequence
 order by cr.recipesequence
 
 /*

@@ -10,7 +10,7 @@ User
 
 Cuisine 
     CuisineID int not null identity primary key 
-    CuisineType varchar not null check constraint not blank unique 
+    Cuisine varchar not null check constraint not blank unique 
 
 Ingredient
     IngredientID int not null IDENTITY primary key 

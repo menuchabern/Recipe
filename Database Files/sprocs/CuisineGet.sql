@@ -1,21 +1,20 @@
-create or alter procedure dbo.CuisineGet(@CuisineType varchar(30) = '', @All bit = 0, @CuisineId int = 0)
+create or alter procedure dbo.CuisineGet(@Cuisine varchar(30) = null, @All bit = 0, @CuisineId int = 0)
 as 
 begin
-	select @CuisineType = nullif(@cuisinetype, '')
-	select CuisineID, CuisineType
+	select CuisineID, Cuisine
 	from Cuisine
 	where @all = 1
-	or CuisineType like '%' + @cuisinetype + '%'
+	or Cuisine like '%' + @cuisine + '%'
 	or CuisineID = @CuisineId
-	order by CuisineType
+	order by Cuisine
 end
 go
 
 /*
 exec CuisineGet @All = 1
 
-exec CuisineGet @CuisineType = ''
-exec CuisineGet @CuisineType = 'a'
+exec CuisineGet @Cuisine = ''
+exec CuisineGet @Cuisine = 'a'
 
 declare @id int
 select top 1 @id = cuisineid from cuisine 
