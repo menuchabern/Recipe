@@ -1,10 +1,10 @@
-create or alter procedure dbo.CuisineGet(@Cuisine varchar(30) = null, @All bit = 0, @CuisineId int = 0)
+create or alter procedure dbo.CuisineGet(@Cuisine varchar(30) = '', @All bit = 0, @CuisineId int = 0)
 as 
 begin
 	select CuisineID, Cuisine
 	from Cuisine
 	where @all = 1
-	or Cuisine like '%' + @cuisine + '%'
+	or (@Cuisine <> '' and cuisine like '%' + @Cuisine + '%')
 	or CuisineID = @CuisineId
 	order by Cuisine
 end

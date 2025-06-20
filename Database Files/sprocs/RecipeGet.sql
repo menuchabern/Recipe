@@ -1,6 +1,6 @@
 create or alter procedure dbo.RecipeGet(
 	@All bit = 0,
-	@RecipeName varchar(40)= null,
+	@RecipeName varchar(40)= '',
 	@RecipeID int = 0
 )
 as 
@@ -12,7 +12,7 @@ begin
 	join cuisine c 
 	on c.cuisineid = r.cuisineid 
 	where @All = 1
-	or RecipeName like '%' + @RecipeName + '%'
+	or (@recipeName <> '' and r.recipeName like '%' + @recipeName + '%')
 	or RecipeID = @RecipeID
 end
 go

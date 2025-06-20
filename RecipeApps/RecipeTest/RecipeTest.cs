@@ -1,5 +1,3 @@
-using Microsoft.VisualBasic.ApplicationServices;
-using RecipeSystem;
 using System.Data;
 
 namespace RecipeTest
