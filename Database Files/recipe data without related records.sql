@@ -84,7 +84,7 @@ create table dbo.MealCourse(
 go
 
 create table dbo.RecipeMealCourse(
-    RecipesMealCourseID int not null identity primary key,
+    RecipeMealCourseID int not null identity primary key,
     MealCourseID int not null constraint f_MealCourse_RecipeMealCourse foreign key references MealCourse(MealCourseID),
     RecipeID int not null constraint f_Recipe_RecipeMealCourse foreign key references Recipe(RecipeID), 
     MainDish bit not null,
