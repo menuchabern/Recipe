@@ -45,13 +45,37 @@ namespace RecipeWinForms
 
         private void Save()
         {
-            Recipe.Save(dtrecipe);
+            Application.UseWaitCursor = true;
+            try
+            {
+               Recipe.Save(dtrecipe);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Recipe");
+            }
+            finally
+            {
+                Application.UseWaitCursor = false;
+            }
         }
 
         private void Delete()
         {
-            Recipe.Delete(dtrecipe);
-            this.Close();
+            Application.UseWaitCursor = true;
+            try
+            {
+                Recipe.Delete(dtrecipe);
+                this.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Recipe");
+            }
+            finally
+            {
+                Application.UseWaitCursor = false;
+            }
         }
         private void BtnSave_Click(object? sender, EventArgs e)
         {
