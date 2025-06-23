@@ -52,3 +52,42 @@ create table dbo.Recipe(
     constraint ck_DateDrafted_must_be_before_DateArchived check(DateDrafted <= DateArchived)
 )
 go
+
+create table dbo.CourseType(
+    CourseTypeID int not null identity primary key,
+    CourseName varchar(30) not null 
+        constraint ck_CourseName_cannot_be_blank check (CourseName <> '') 
+        constraint u_CourseName unique, 
+    CourseSequence tinyint not null  
+        constraint ck_CourseSequence_must_be_greater_than_0 check(CourseSequence > 0) 
+        constraint u_CourseSequence unique 
+)
+go
+
+create table dbo.Meal(
+    MealID int not null IDENTITY primary key,
+    UserNameID int not null constraint f_UserName_Meal foreign key references UserName(UserNameID),
+    MealName varchar(30) not null 
+        constraint ck_MealName_cannot_be_blank check(MealName <> '') 
+        constraint u_MealName unique,
+    DateCreated date not null constraint ck_Meal_DateCreated_cannot_be_in_the_future check(DateCreated between '1/1/2000' and getdate()),
+    ActiveStatus bit not null,
+    PictureName as concat('Meal_', replace(MealName, ' ', '_'), '.jpg' )
+)
+go
+create table dbo.MealCourse(
+    MealCourseID int not null identity primary key,
+    MealID int not null constraint f_Meal_MealCourse foreign key REFERENCES Meal(MealID),
+    CourseTypeID int not null constraint f_CourseType_MealCourse foreign key REFERENCES CourseType(CourseTypeID),
+    constraint u_MealID_CourseTypeID unique (MealID, CourseTypeID) 
+)
+go
+
+create table dbo.RecipeMealCourse(
+    RecipesMealCourseID int not null identity primary key,
+    MealCourseID int not null constraint f_MealCourse_RecipeMealCourse foreign key references MealCourse(MealCourseID),
+    RecipeID int not null constraint f_Recipe_RecipeMealCourse foreign key references Recipe(RecipeID), 
+    MainDish bit not null,
+    constraint u_MealCourseID_RecipeID unique(MealCourseID, RecipeID)
+)
+go

@@ -1,4 +1,3 @@
---AS Amazing job! See minor comment, no need to resubmit.
 use RecipeDB
 go 
 drop table if exists CookbookRecipe
