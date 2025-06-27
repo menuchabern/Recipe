@@ -1,4 +1,3 @@
---AS Amazing job! 
 use RecipeDB
 go
 
@@ -240,6 +239,7 @@ join Meal m
 on m.MealName = x.Meal
 join CourseType ct 
 on x.CourseType = ct.CourseName
+
 ;with x as (
    select  Meal = 'Savory Supper', Course = 'Appetizer', Recipe = 'Sweet Potato Parsley Salad', MainDish = 0
    union select 'Savory Supper', 'Main Course', 'Breaded Chicken Breasts', 1

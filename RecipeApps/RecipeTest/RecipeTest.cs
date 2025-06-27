@@ -93,7 +93,12 @@ namespace RecipeTest
         [Test]
         public void DeleteRecipe()
         {
-            DataTable dt = SQLUtility.GetDataTable("select top 1 r.recipeid, r.recipename from recipe r left join recipemealcourse m on m.recipeid = r.recipeid where m.recipemealcourseid is null");
+            DataTable dt = SQLUtility.GetDataTable(@"select * from recipe r
+                left join recipemealcourse rmc
+                on rmc.recipeid = r.recipeid
+                left join cookbookrecipe cr 
+                on cr.recipeid = r.recipeid
+                where rmc.recipemealcourseid is null and cr.cookbookrecipeid is null");
             Assume.That(dt.Rows.Count > 0, "no recipes without related records, cannot run test");
             int recipeid = (int)dt.Rows[0]["recipeid"];
             string recipedesc = dt.Rows[0]["recipename"].ToString();

@@ -9,7 +9,7 @@ namespace RecipeSystem
         public static DataTable SearchRecipe(string recipename)
         {
             SqlCommand cmd = SQLUtility.GetSQLCommand("recipeget");
-            cmd.Parameters["@RecipeName"].Value = recipename;
+            SQLUtility.SetParamValue(cmd, "@RecipeName", recipename);
             DataTable dt = SQLUtility.GetDataTable(cmd);
             return dt;
         }
@@ -17,7 +17,7 @@ namespace RecipeSystem
         public static DataTable LoadRecipe(int recipeid)
         {
             SqlCommand cmd = SQLUtility.GetSQLCommand("recipeget");
-            cmd.Parameters["@Recipeid"].Value = recipeid;
+            SQLUtility.SetParamValue(cmd, "@Recipeid", recipeid);
             DataTable dt = SQLUtility.GetDataTable(cmd);
             return SQLUtility.GetDataTable(cmd);
         }
@@ -49,16 +49,17 @@ namespace RecipeSystem
 
         public static void Delete(DataTable dtrecipe)
         {
-            DataRow r = dtrecipe.Rows[0];
-            string sql = "delete recipe where recipeid = " + r["recipeid"].ToString();
-            SQLUtility.ExecuteSQL(sql);
+            int id = (int)dtrecipe.Rows[0]["Recipeid"];
+            SqlCommand cmd = SQLUtility.GetSQLCommand("recipedelete");
+            SQLUtility.SetParamValue(cmd, "@recipeid", id);
+            SQLUtility.ExecuteSQL(cmd);
         }
 
         public static DataTable GetUserNameList()
         {
             DataTable dt = new();
             SqlCommand cmd = SQLUtility.GetSQLCommand("UserNameGet");
-            cmd.Parameters["@All"].Value = 1;
+            SQLUtility.SetParamValue(cmd, "@All", 1);
             dt = SQLUtility.GetDataTable(cmd);
             return dt;
         }
@@ -67,7 +68,7 @@ namespace RecipeSystem
         {
             DataTable dt = new();
             SqlCommand cmd = SQLUtility.GetSQLCommand("CuisineGet");
-            cmd.Parameters["@All"].Value = 1;
+            SQLUtility.SetParamValue(cmd, "@All", 1);
             dt = SQLUtility.GetDataTable(cmd);
             return dt;
         }
