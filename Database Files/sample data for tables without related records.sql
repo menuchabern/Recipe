@@ -93,13 +93,13 @@ union select 'dessert', 3
 
 --Recipe
 ;with x as (
-   select Cuisine = 'American', UserName = 'Jake', RecipeName = 'Chocolate Chip Cookies', Calories = 100, DateDrafted = '7/11/15', DatePublished = '12/8/19', DateArchived = '3/18/24'
+   select Cuisine = 'American', UserName = 'Jake', RecipeName = 'Chocolate Chip Cookies', Calories = 100, DateDrafted = '7/11/15', DatePublished = '12/8/19', DateArchived = '3/18/20'
    union select 'French', 'Jam', 'Apple Yogurt Smoothie', 75, '3/9/20', null, null
-   union select 'English', 'Mak', 'Cheese Bread', 200, '7/20/17', '4/12/19', null
-   union select 'American', 'Pat', 'Butter Muffins', 150, '2/9/23', null, null
+   union select 'English', 'Mak', 'Cheese Bread', 200, '7/20/17', null, null
+   union select 'American', 'Pat', 'Butter Muffins', 150, '2/9/23', '4/6/23', null
    union select 'American', 'As', 'Sweet Potato Parsley Salad', 200, '8/12/20', '2/23/21', '7/24/24'
-   union select 'Israeli', 'Mak', 'Breaded Chicken Breasts', 215, '2/2/20', null, null
-   union select 'Swiss', 'Jam', 'Fudgy Brownies', 300, '8/23/19', null, '8/14/24'
+   union select 'Israeli', 'Mak', 'Breaded Chicken Breasts', 215, '2/2/20', '7/18/22', null
+   union select 'Swiss', 'Jam', 'Fudgy Brownies', 300, '8/23/19', null, null
 )
 insert Recipe (CuisineID, UserNameID, RecipeName, Calories, DateDrafted, DatePublished, DateArchived) 
 select c.CuisineID, un.UserNameID, x.RecipeName, x.Calories, x.DateDrafted, x.DatePublished, x.DateArchived
@@ -257,9 +257,7 @@ on x.CourseType = ct.CourseName
    union select 'Savory Supper', 'Main Course', 'Breaded Chicken Breasts', 1
    union select 'Savory Supper', 'Dessert', 'Fudgy Brownies', 0
    union select 'Midday Snack', 'Main Course', 'Chocolate Chip Cookies', 1
-   union select 'Light Lunch', 'Main Course', 'Butter Muffins', 1
    union select 'Light Lunch', 'Main Course', 'Sweet Potato Parsley Salad', 0
-   union select 'Breakfast Bash', 'Main Course', 'Butter Muffins', 0
 )
 insert RecipeMealCourse(MealCourseID, RecipeID, MainDish)
 select mc.MealCourseID, r.RecipeID, x.MainDish
@@ -290,11 +288,8 @@ on un.UserName = x.UserName
 --CookbookRecipe
 ;with x as (
    select Cookbook = 'Treats For Two', Recipe = 'Chocolate Chip Cookies', RecipeSequence = 1
-   union select 'treats for two', 'Butter Muffins', 4
-   union select 'savory snacks', 'butter muffins', 1
    union select 'savory snacks', 'chocolate chip cookies', 2
    union select 'savory snacks', 'fudgy brownies', 3 
-   union select 'dairy delights', 'butter muffins', 2
    union select 'healthy habits', 'sweet potato parsley salad', 1
    union select 'healthy habits', 'breaded chicken breasts', 3
 )

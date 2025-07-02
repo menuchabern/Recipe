@@ -98,7 +98,10 @@ namespace RecipeTest
                 on rmc.recipeid = r.recipeid
                 left join cookbookrecipe cr 
                 on cr.recipeid = r.recipeid
-                where rmc.recipemealcourseid is null and cr.cookbookrecipeid is null");
+                where rmc.recipemealcourseid is null 
+                    and cr.cookbookrecipeid is null
+                    and (r.recipestatus = 'draft'
+                        or DATEDIFF(DAY, r.datearchived, GETDATE()) >= 30)");
             Assume.That(dt.Rows.Count > 0, "no recipes without related records, cannot run test");
             int recipeid = (int)dt.Rows[0]["recipeid"];
             string recipedesc = dt.Rows[0]["recipename"].ToString();
@@ -113,9 +116,12 @@ namespace RecipeTest
         }
 
         [Test]
-        public void DeleteRecipeWithRelatedRecords()
+        public void DeleteRecipeThatIsNotDraftedAndRecentlyArchived()
         {
-            DataTable dt = SQLUtility.GetDataTable("select top 1 r.recipeid, r.recipename from recipe r join recipemealcourse m on m.recipeid = r.recipeid \r\n");
+            DataTable dt = SQLUtility.GetDataTable(@"select top 1 r.recipeid, r.recipename 
+                from recipe r 
+                where not (r.recipestatus = 'draft' or DATEDIFF(DAY, r.datearchived, GETDATE()) < 30)");
+
             Assume.That(dt.Rows.Count > 0, "no recipes with related records, cannot run test");
             int recipeid = (int)dt.Rows[0]["recipeid"];
             string recipedesc = dt.Rows[0]["recipename"].ToString();
