@@ -118,14 +118,37 @@ namespace RecipeTest
         [Test]
         public void DeleteRecipeThatIsNotDraftedAndRecentlyArchived()
         {
-            DataTable dt = SQLUtility.GetDataTable(@"select top 1 r.recipeid, r.recipename 
-                from recipe r 
+            DataTable dt = SQLUtility.GetDataTable(@"select top 1 r.recipeid, r.recipename
+                from recipe r
                 where not (r.recipestatus = 'draft' or DATEDIFF(DAY, r.datearchived, GETDATE()) < 30)");
 
             Assume.That(dt.Rows.Count > 0, "no recipes with related records, cannot run test");
             int recipeid = (int)dt.Rows[0]["recipeid"];
             string recipedesc = dt.Rows[0]["recipename"].ToString();
             TestContext.WriteLine("ensure that app cannot delete " + recipedesc);
+
+            Exception ex = Assert.Throws<Exception>(() => Recipe.Delete(dt));
+            TestContext.WriteLine(ex.Message);
+        }
+
+        [Test]
+        public void DeleteRecipeWithForeignKeyConstraint()
+        {
+            DataTable dt = SQLUtility.GetDataTable(@"select top 1 r.recipeid, r.recipename
+                from recipe r
+                left join recipemealcourse rmc
+                on rmc.recipeid = r.recipeid
+                left join cookbookrecipe cr
+                on cr.recipeid = r.recipeid
+                where (r.recipestatus = 'draft'
+                    or DATEDIFF(DAY, r.datearchived, GETDATE()) >= 30)
+                    and (rmc.recipemealcourseid is not null
+                        or cr.cookbookrecipeid is not null)");
+
+            Assume.That(dt.Rows.Count > 0, "no recipes with related records, cannot run test");
+            int recipeid = (int)dt.Rows[0]["recipeid"];
+            string recipedesc = dt.Rows[0]["recipename"].ToString();
+            TestContext.WriteLine("ensure that app cannot delete " + recipedesc + " due to related records");
 
             Exception ex = Assert.Throws<Exception>(() => Recipe.Delete(dt));
             TestContext.WriteLine(ex.Message);
