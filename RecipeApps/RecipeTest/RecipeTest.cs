@@ -137,11 +137,11 @@ namespace RecipeTest
             DataTable dt = SQLUtility.GetDataTable(@"select top 1 r.recipeid, r.recipename
                 from recipe r
                 left join recipemealcourse rmc
-                on rmc.recipeid = r.recipeid
+                    on rmc.recipeid = r.recipeid
                 left join cookbookrecipe cr
-                on cr.recipeid = r.recipeid
+                    on cr.recipeid = r.recipeid
                 where (r.recipestatus = 'draft'
-                    or DATEDIFF(DAY, r.datearchived, GETDATE()) >= 30)
+                    or DATEDIFF(DAY, r.datearchived, GETDATE()) < 30)
                     and (rmc.recipemealcourseid is not null
                         or cr.cookbookrecipeid is not null)");
 
