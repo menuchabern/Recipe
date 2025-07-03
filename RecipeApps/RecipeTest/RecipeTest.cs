@@ -152,6 +152,10 @@ namespace RecipeTest
 
             Exception ex = Assert.Throws<Exception>(() => Recipe.Delete(dt));
             TestContext.WriteLine(ex.Message);
+            StringAssert.Contains("REFERENCE", ex.Message.ToUpper(), "should reach FK violation");
+
+            DataTable dtCheck = SQLUtility.GetDataTable("select * from recipe where recipeid = " + recipeid);
+            Assert.That(dtCheck.Rows.Count, Is.EqualTo(1), "recipe should still exist after failed delete");
         }
 
         [Test]
