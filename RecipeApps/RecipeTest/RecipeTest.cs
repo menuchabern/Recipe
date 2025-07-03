@@ -1,4 +1,6 @@
+using RecipeSystem;
 using System.Data;
+using System.Windows.Forms;
 
 namespace RecipeTest
 {
@@ -116,13 +118,38 @@ namespace RecipeTest
         }
 
         [Test]
-        public void DeleteRecipeThatIsNotDraftedAndRecentlyArchived()
+        public void DeleteRecipeThatHasRelatedRecords()
         {
-            DataTable dt = SQLUtility.GetDataTable(@"select top 1 r.recipeid, r.recipename 
-                from recipe r 
-                where not (r.recipestatus = 'draft' or DATEDIFF(DAY, r.datearchived, GETDATE()) < 30)");
+            DataTable dt = SQLUtility.GetDataTable(@"select * 
+                from recipe r
+                left join RecipeMealCourse rmc 
+                on r.RecipeID = rmc.RecipeID 
+                left join CookbookRecipe cr 
+                on cr.RecipeID = r.RecipeID
+                where (rmc.RecipeMealCourseID is not null 
+                	or cr.CookbookRecipeID is null)
+                	and (r.recipestatus = 'draft' or DATEDIFF(DAY, r.datearchived, GETDATE()) >= 30)");
 
             Assume.That(dt.Rows.Count > 0, "no recipes with related records, cannot run test");
+            int recipeid = (int)dt.Rows[0]["recipeid"];
+            string recipedesc = dt.Rows[0]["recipename"].ToString();
+            TestContext.WriteLine("ensure that app cannot delete " + recipedesc);
+
+            Exception ex = Assert.Throws<Exception>(() => Recipe.Delete(dt));
+            TestContext.WriteLine(ex.Message);
+        }
+
+        [Test]
+        public void DeleteRecipeThatIsNotDraftedAndRecentlyArchived()
+        {
+            DataTable dt = SQLUtility.GetDataTable(@"select top 1
+                r.recipeid,
+                r.recipename
+                from recipe r
+                where r.recipestatus <> 'draft'
+                and (r.datearchived is null or DATEDIFF(DAY, r.datearchived, GETDATE()) < 30)");
+               
+            Assume.That(dt.Rows.Count > 0, "no recipes that are not drafted and recently archive, cannot run test");
             int recipeid = (int)dt.Rows[0]["recipeid"];
             string recipedesc = dt.Rows[0]["recipename"].ToString();
             TestContext.WriteLine("ensure that app cannot delete " + recipedesc);

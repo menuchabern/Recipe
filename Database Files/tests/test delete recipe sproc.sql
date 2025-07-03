@@ -12,7 +12,7 @@ select * from recipe
 
 declare @return int
 declare @Message varchar(500)
-exec @return = RecipeDelete @recipeid = 132, @Message = @Message output
+exec @return = RecipeDelete @recipeid = 190, @Message = @Message output
 select @return, @Message
 
 select * from recipe
