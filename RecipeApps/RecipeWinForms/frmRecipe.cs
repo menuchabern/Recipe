@@ -6,6 +6,7 @@ namespace RecipeWinForms
     public partial class frmRecipe : Form
     {
         DataTable dtrecipe;
+        BindingSource bindsource = new();
         public frmRecipe()
         {
             InitializeComponent();
@@ -16,9 +17,8 @@ namespace RecipeWinForms
 
         public void ShowResultsForm(int recipeid)
         {
-            
             dtrecipe = Recipe.LoadRecipe(recipeid);
-
+            bindsource.DataSource = dtrecipe;
             if (recipeid == 0)
             {
                 dtrecipe.Rows.Add();
@@ -30,12 +30,12 @@ namespace RecipeWinForms
             DataTable dtcuisine = Recipe.GetCuisineList();
             WindowsFormsUtility.SetListBinding(lstCuisine, dtcuisine, dtrecipe, "Cuisine");
 
-            WindowsFormsUtility.SetControlBinding(txtRecipeName, dtrecipe);
-            WindowsFormsUtility.SetControlBinding(txtCalories, dtrecipe);
-            WindowsFormsUtility.SetControlBinding(txtRecipeStatus, dtrecipe);
-            WindowsFormsUtility.SetControlBinding(txtDateDrafted, dtrecipe);
-            WindowsFormsUtility.SetControlBinding(txtDatePublished, dtrecipe);
-            WindowsFormsUtility.SetControlBinding(txtDateArchived, dtrecipe);
+            WindowsFormsUtility.SetControlBinding(txtRecipeName, bindsource);
+            WindowsFormsUtility.SetControlBinding(txtCalories, bindsource);
+            WindowsFormsUtility.SetControlBinding(txtRecipeStatus, bindsource);
+            WindowsFormsUtility.SetControlBinding(txtDateDrafted, bindsource);
+            WindowsFormsUtility.SetControlBinding(txtDatePublished, bindsource);
+            WindowsFormsUtility.SetControlBinding(txtDateArchived, bindsource);
 
             Debug.Print(dtrecipe == null ? "dtrecipe is null" : "dtrecipe is initialized");
 
