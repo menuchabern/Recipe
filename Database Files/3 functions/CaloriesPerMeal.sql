@@ -10,7 +10,6 @@ begin
 	join mealcourse mc
 	on mc.mealcourseid = rmc.mealcourseid
 	where mc.mealid = @MealId
-	group by rmc.mealcourseid
 	return @value
 end
 go
