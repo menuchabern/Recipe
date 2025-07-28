@@ -5,7 +5,8 @@ create or alter procedure dbo.RecipeGet(
 )
 as 
 begin
-	select r.recipeid, r.cuisineid, r.usernameid, r.recipename, u.username, r.calories, r.recipestatus, r.datedrafted, r.datearchived, r.datepublished, c.cuisine
+	select r.recipeid, r.cuisineid, r.usernameid, r.recipename, u.username, r.calories, r.recipestatus, r.datedrafted, r.datearchived, r.datepublished, c.cuisine,
+		RecipeDesc = dbo.RecipeDesc(r.recipeid)
 	from recipe r 
 	join username u 
 	on r.usernameid = u.usernameid 
