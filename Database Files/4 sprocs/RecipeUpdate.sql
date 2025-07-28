@@ -12,7 +12,7 @@ create or alter procedure dbo.RecipeUpdate(
 as 
 begin
 	declare @return int = 0
-	select @RecipeId = isnull(@recipeid, 0), @datedrafted = isnull(@datedrafted, 0)
+	select @RecipeId = isnull(@recipeid, 0)
 
 	if @recipeid = 0
 	begin
