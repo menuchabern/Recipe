@@ -6,10 +6,10 @@ namespace RecipeSystem
 {
     public class Recipe
     {
-        public static DataTable SearchRecipe(string recipename)
+        public static DataTable SearchRecipe()
         {
             SqlCommand cmd = SQLUtility.GetSQLCommand("recipeget");
-            SQLUtility.SetParamValue(cmd, "@RecipeName", recipename);
+            SQLUtility.SetParamValue(cmd, "@all", 1);
             DataTable dt = SQLUtility.GetDataTable(cmd);
             return dt;
         }

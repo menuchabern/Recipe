@@ -5,16 +5,20 @@ create or alter procedure dbo.RecipeGet(
 )
 as 
 begin
-	select r.recipeid, r.cuisineid, r.usernameid, r.recipename, u.username, r.calories, r.recipestatus, r.datedrafted, r.datearchived, r.datepublished, c.cuisine,
-		RecipeDesc = dbo.RecipeDesc(r.recipeid)
+	select r.recipeid, r.RecipeName, r.RecipeStatus, u.UserName, r.Calories, count(*) as NumIngredients , r.datedrafted, r.datearchived, r.datepublished, c.cuisine
 	from recipe r 
 	join username u 
 	on r.usernameid = u.usernameid 
 	join cuisine c 
 	on c.cuisineid = r.cuisineid 
+	join RecipeIngredient ri
+	on ri.RecipeId = r.RecipeID
 	where @All = 1
 	or (@recipeName <> '' and r.recipeName like '%' + @recipeName + '%')
-	or RecipeID = @RecipeID
+	or r.RecipeID = @RecipeID
+	group by r.recipeid, r.recipename, r.recipestatus, u.username, r.calories,  r.datedrafted, r.datearchived, r.datepublished, c.cuisine
+	order by RecipeStatus desc
+
 end
 go
 

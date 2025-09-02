@@ -1,0 +1,79 @@
+﻿namespace RecipeWinForms
+{
+    public partial class frmMain : Form
+    {
+        public frmMain()
+        {
+            InitializeComponent();
+            mnuCascadeWindows.Click += MnuCascadeWindows_Click;
+            mnuTileWindows.Click += MnuTileWindows_Click;
+            this.Shown += FrmMain_Shown;
+            mnuDashboard.Click += MnuDashboard_Click;
+            mnuRecipeList.Click += MnuRecipeList_Click;
+        }
+
+        public void OpenForm(Type frmtype, int pkvalue = 0)
+        {
+            bool exists = WindowsFormsUtility.IsFormOpen(frmtype);
+            if (exists == false)
+            {
+                Form? newfrm = null;
+                if (frmtype == typeof(frmDashboard))
+                {
+                    frmDashboard f = new();
+                    newfrm = f;
+                }
+                else if (frmtype == typeof(frmRecipeList))
+                {
+                    frmRecipeList f = new();
+                    newfrm = f;
+                }
+                if (newfrm != null)
+                {
+                    newfrm.MdiParent = this;
+                    newfrm.WindowState = FormWindowState.Maximized;
+                    newfrm.FormClosed += Frm_FormClosed;
+                    newfrm.TextChanged += Newfrm_TextChanged;
+                    newfrm.Show();
+                }
+                WindowsFormsUtility.SetupNav(tsMain);
+            }
+        }
+
+        private void MnuRecipeList_Click(object? sender, EventArgs e)
+        {
+            OpenForm(typeof(frmRecipeList));
+        }
+
+        private void MnuDashboard_Click(object? sender, EventArgs e)
+        {
+            OpenForm(typeof(frmDashboard));
+        }
+
+        private void FrmMain_Shown(object? sender, EventArgs e)
+        {
+            OpenForm(typeof(frmDashboard));
+        }
+
+
+        private void Newfrm_TextChanged(object? sender, EventArgs e)
+        {
+            WindowsFormsUtility.SetupNav(tsMain);
+        }
+
+        private void Frm_FormClosed(object? sender, FormClosedEventArgs e)
+        {
+            WindowsFormsUtility.SetupNav(tsMain);
+        }
+
+        private void MnuTileWindows_Click(object? sender, EventArgs e)
+        {
+            LayoutMdi(MdiLayout.TileVertical);
+        }
+
+        private void MnuCascadeWindows_Click(object? sender, EventArgs e)
+        {
+            LayoutMdi(MdiLayout.Cascade);
+        }
+    }
+}
