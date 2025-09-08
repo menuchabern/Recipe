@@ -69,7 +69,7 @@
             gData.Margin = new Padding(4);
             gData.Name = "gData";
             gData.RowHeadersWidth = 51;
-            gData.Size = new Size(728, 192);
+            gData.Size = new Size(728, 350);
             gData.TabIndex = 2;
             // 
             // lblHeartyHearth
@@ -106,11 +106,11 @@
             tblButtons.Controls.Add(btnMealList, 1, 0);
             tblButtons.Controls.Add(btnCookbookList, 2, 0);
             tblButtons.Dock = DockStyle.Fill;
-            tblButtons.Location = new Point(3, 400);
+            tblButtons.Location = new Point(3, 558);
             tblButtons.Name = "tblButtons";
             tblButtons.RowCount = 1;
             tblButtons.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            tblButtons.Size = new Size(730, 250);
+            tblButtons.Size = new Size(730, 92);
             tblButtons.TabIndex = 5;
             // 
             // btnRecipeList
@@ -118,7 +118,7 @@
             btnRecipeList.Dock = DockStyle.Fill;
             btnRecipeList.Location = new Point(3, 3);
             btnRecipeList.Name = "btnRecipeList";
-            btnRecipeList.Size = new Size(237, 244);
+            btnRecipeList.Size = new Size(237, 86);
             btnRecipeList.TabIndex = 0;
             btnRecipeList.Text = "Recipe List";
             btnRecipeList.UseVisualStyleBackColor = true;
@@ -129,7 +129,7 @@
             btnMealList.Dock = DockStyle.Fill;
             btnMealList.Location = new Point(246, 3);
             btnMealList.Name = "btnMealList";
-            btnMealList.Size = new Size(237, 244);
+            btnMealList.Size = new Size(237, 86);
             btnMealList.TabIndex = 1;
             btnMealList.Text = "MealList";
             btnMealList.UseVisualStyleBackColor = true;
@@ -139,7 +139,7 @@
             btnCookbookList.Dock = DockStyle.Fill;
             btnCookbookList.Location = new Point(489, 3);
             btnCookbookList.Name = "btnCookbookList";
-            btnCookbookList.Size = new Size(238, 244);
+            btnCookbookList.Size = new Size(238, 86);
             btnCookbookList.TabIndex = 2;
             btnCookbookList.Text = "Cookbook List";
             btnCookbookList.UseVisualStyleBackColor = true;

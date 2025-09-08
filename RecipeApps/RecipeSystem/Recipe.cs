@@ -68,5 +68,11 @@ namespace RecipeSystem
             return dt;
         }
 
+        public static void DeleteTab(int id, string sprocname, string param)
+        {
+            SqlCommand cmd = SQLUtility.GetSQLCommand(sprocname);
+            cmd.Parameters[param].Value = id;
+            SQLUtility.ExecuteSQL(cmd);
+        }
     }
 }

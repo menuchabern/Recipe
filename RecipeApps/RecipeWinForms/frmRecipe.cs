@@ -20,6 +20,8 @@ namespace RecipeWinForms
             this.FormClosing += FrmRecipe_FormClosing;
             gIngredients.DataError += TabGrid_DataError;
             gSteps.DataError += TabGrid_DataError;
+            gIngredients.CellContentClick += GIngredients_CellContentClick; ;
+            gSteps.CellContentClick += GSteps_CellContentClick; ;
         }
 
         private string GetFormTitle()
@@ -60,6 +62,28 @@ namespace RecipeWinForms
 
             LoadIngredientsTab();
             LoadStepsTab();
+
+            EnableDisableButtons();
+        }
+
+        private void EnableDisableButtons()
+        {
+            List<Button> btnlist = new() { btnDelete, btnChangeStatus, btnIngredientsSave, btnStepsSave };
+            if(this.Text == "New Recipe")  
+            {
+                foreach (Button btn in btnlist)
+                {
+                    btn.Enabled = false;
+                }
+
+            }
+            else if(this.Text != "New Recipe")
+            {
+                foreach (Button btn in btnlist)
+                {
+                    btn.Enabled = true;
+                }
+            }
         }
 
         private void LoadStepsTab()
@@ -76,8 +100,8 @@ namespace RecipeWinForms
             gIngredients.Columns.Clear();
             dtingredients = Recipe.LoadRecipeTabs(recipeid, "RecipeIngredientsGet");
             gIngredients.DataSource = dtingredients;
-            WindowsFormsUtility.AddComboBoxToGrid(gIngredients, SQLUtility.GetDataTableForList("measurementget"), "measurementtype", "measurementtype");
-            WindowsFormsUtility.AddComboBoxToGrid(gIngredients, SQLUtility.GetDataTableForList("IngredientGet"), "Ingredient", "IngredientName");
+            WindowsFormsUtility.AddComboBoxToGrid(gIngredients, SQLUtility.GetDataTableForList("measurementget", 1), "measurementtype", "measurementtype");
+            WindowsFormsUtility.AddComboBoxToGrid(gIngredients, SQLUtility.GetDataTableForList("IngredientGet", 1), "Ingredient", "IngredientName");
             WindowsFormsUtility.AddDeleteButtonToGrid(gIngredients, "deleteingredientscol");
             WindowsFormsUtility.FormatGridForEdit(gIngredients);
         }
@@ -94,6 +118,7 @@ namespace RecipeWinForms
                 currentrow["RecipeStatus"] = "Drafted";
                 bindsource.ResetCurrentItem();
 
+                EnableDisableButtons();
                 dtrecipe.AcceptChanges();
                 bindsource.ResetBindings(false);
                 recipeid = SQLUtility.GetValueFromFirstRowAsInt(dtrecipe, "Recipeid");
@@ -147,6 +172,36 @@ namespace RecipeWinForms
             }
         }
 
+
+        private void DeleteTab(int rowIndex, DataGridView grid, string idcol, string sprocname)
+        {
+            int id = WindowsFormsUtility.GetIdFromGrid(grid, rowIndex, idcol);
+            if (id > 0)
+            {
+                try
+                {
+                    Recipe.DeleteTab(id, sprocname, "@" + idcol);
+                    if (grid.Name == "gSteps")
+                    {
+                        LoadStepsTab();
+                    }
+                    else if (grid.Name == "gIngredients")
+                    {
+                        LoadIngredientsTab();
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, Application.ProductName);
+                }
+            }
+            else if (id < grid.Rows.Count)
+            {
+                grid.Rows.RemoveAt(rowIndex);
+            }
+        }
+
         private void FrmRecipe_FormClosing(object? sender, FormClosingEventArgs e)
         {
             bindsource.EndEdit();
@@ -188,7 +243,7 @@ namespace RecipeWinForms
             {
                 SaveTab(dtsteps, "RecipeStepsUpdate");
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, Application.ProductName);
             }
@@ -204,6 +259,39 @@ namespace RecipeWinForms
             try
             {
                 SaveTab(dtingredients, "RecipeIngredientsUpdate");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, Application.ProductName);
+            }
+            finally
+            {
+                Application.UseWaitCursor = false;
+            }
+        }
+
+        private void GSteps_CellContentClick(object? sender, DataGridViewCellEventArgs e)
+        {
+            try
+            {
+                DeleteTab(e.RowIndex, gSteps, "RecipeStepsID", "RecipeStepsDelete");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, Application.ProductName);
+            }
+            finally
+            {
+                Application.UseWaitCursor = false;
+            }
+        }
+
+        private void GIngredients_CellContentClick(object? sender, DataGridViewCellEventArgs e)
+        {
+            Application.UseWaitCursor = true;
+            try
+            {
+                DeleteTab(e.RowIndex, gIngredients, "RecipeIngredientID", "RecipeIngredientDelete");
             }
             catch (Exception ex)
             {
