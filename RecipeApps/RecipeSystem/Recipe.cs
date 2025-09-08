@@ -24,13 +24,12 @@ namespace RecipeSystem
 
         public static void Save(DataTable dtrecipe)
         {
-            if (dtrecipe.Rows.Count == 0)
+            if (dt.Rows.Count == 0)
             {
-                throw new Exception("cannot call recipe save method because there are no rows in the table");
+                throw new Exception("Cannot save because there are no rows in the table");
             }
 
             DataRow r = dtrecipe.Rows[0];
-            SQLUtility.SaveDataRow(r, "RecipeUpdate");
         }
 
         public static void Delete(DataTable dtrecipe)
