@@ -13,7 +13,7 @@
         private void FrmDashboard_Activated(object? sender, EventArgs e)
         {
             gData.DataSource = DataMaintenanace.DashboardGet();
-            WindowsFormsUtility.FormatGridForSearchResult(gData, "dashboard");
+            WindowsFormsUtility.FormatGridForSearchResult(gData);
         }
 
         private void BtnRecipeList_Click(object? sender, EventArgs e)

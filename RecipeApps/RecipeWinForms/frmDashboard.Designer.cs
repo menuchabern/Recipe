@@ -57,8 +57,8 @@
             tblMain.RowStyles.Add(new RowStyle());
             tblMain.RowStyles.Add(new RowStyle());
             tblMain.RowStyles.Add(new RowStyle());
-            tblMain.RowStyles.Add(new RowStyle());
-            tblMain.Size = new Size(582, 653);
+            tblMain.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+            tblMain.Size = new Size(736, 653);
             tblMain.TabIndex = 0;
             // 
             // gData
@@ -69,7 +69,7 @@
             gData.Margin = new Padding(4);
             gData.Name = "gData";
             gData.RowHeadersWidth = 51;
-            gData.Size = new Size(574, 192);
+            gData.Size = new Size(728, 192);
             gData.TabIndex = 2;
             // 
             // lblHeartyHearth
@@ -80,7 +80,7 @@
             lblHeartyHearth.Location = new Point(3, 40);
             lblHeartyHearth.Margin = new Padding(3, 40, 3, 40);
             lblHeartyHearth.Name = "lblHeartyHearth";
-            lblHeartyHearth.Size = new Size(576, 41);
+            lblHeartyHearth.Size = new Size(730, 41);
             lblHeartyHearth.TabIndex = 3;
             lblHeartyHearth.Text = "Hearty Hearth Desktop App";
             lblHeartyHearth.TextAlign = ContentAlignment.MiddleCenter;
@@ -92,7 +92,7 @@
             lblWelcometo.Location = new Point(30, 121);
             lblWelcometo.Margin = new Padding(30, 0, 30, 20);
             lblWelcometo.Name = "lblWelcometo";
-            lblWelcometo.Size = new Size(522, 56);
+            lblWelcometo.Size = new Size(676, 56);
             lblWelcometo.TabIndex = 4;
             lblWelcometo.Text = "Welcome to the Hearty Hearth desktop app. In this app you can create recipes and cookbooks. You can also...";
             // 
@@ -100,8 +100,8 @@
             // 
             tblButtons.ColumnCount = 3;
             tblButtons.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333321F));
-            tblButtons.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333321F));
-            tblButtons.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333321F));
+            tblButtons.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333359F));
+            tblButtons.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333359F));
             tblButtons.Controls.Add(btnRecipeList, 0, 0);
             tblButtons.Controls.Add(btnMealList, 1, 0);
             tblButtons.Controls.Add(btnCookbookList, 2, 0);
@@ -109,8 +109,8 @@
             tblButtons.Location = new Point(3, 400);
             tblButtons.Name = "tblButtons";
             tblButtons.RowCount = 1;
-            tblButtons.RowStyles.Add(new RowStyle());
-            tblButtons.Size = new Size(576, 250);
+            tblButtons.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+            tblButtons.Size = new Size(730, 250);
             tblButtons.TabIndex = 5;
             // 
             // btnRecipeList
@@ -118,17 +118,18 @@
             btnRecipeList.Dock = DockStyle.Fill;
             btnRecipeList.Location = new Point(3, 3);
             btnRecipeList.Name = "btnRecipeList";
-            btnRecipeList.Size = new Size(186, 244);
+            btnRecipeList.Size = new Size(237, 244);
             btnRecipeList.TabIndex = 0;
             btnRecipeList.Text = "Recipe List";
             btnRecipeList.UseVisualStyleBackColor = true;
             // 
             // btnMealList
             // 
+            btnMealList.AutoSize = true;
             btnMealList.Dock = DockStyle.Fill;
-            btnMealList.Location = new Point(195, 3);
+            btnMealList.Location = new Point(246, 3);
             btnMealList.Name = "btnMealList";
-            btnMealList.Size = new Size(186, 244);
+            btnMealList.Size = new Size(237, 244);
             btnMealList.TabIndex = 1;
             btnMealList.Text = "MealList";
             btnMealList.UseVisualStyleBackColor = true;
@@ -136,9 +137,9 @@
             // btnCookbookList
             // 
             btnCookbookList.Dock = DockStyle.Fill;
-            btnCookbookList.Location = new Point(387, 3);
+            btnCookbookList.Location = new Point(489, 3);
             btnCookbookList.Name = "btnCookbookList";
-            btnCookbookList.Size = new Size(186, 244);
+            btnCookbookList.Size = new Size(238, 244);
             btnCookbookList.TabIndex = 2;
             btnCookbookList.Text = "Cookbook List";
             btnCookbookList.UseVisualStyleBackColor = true;
@@ -147,7 +148,7 @@
             // 
             AutoScaleDimensions = new SizeF(11F, 28F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(582, 653);
+            ClientSize = new Size(736, 653);
             Controls.Add(tblMain);
             Font = new Font("Segoe UI", 12F);
             Margin = new Padding(4);
@@ -157,6 +158,7 @@
             tblMain.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)gData).EndInit();
             tblButtons.ResumeLayout(false);
+            tblButtons.PerformLayout();
             ResumeLayout(false);
         }
 

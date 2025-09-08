@@ -29,17 +29,17 @@
         private void InitializeComponent()
         {
             tblMain = new TableLayoutPanel();
-            gRecipeResults = new DataGridView();
+            gRecipes = new DataGridView();
             btnNewRecipe = new Button();
             tblMain.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)gRecipeResults).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)gRecipes).BeginInit();
             SuspendLayout();
             // 
             // tblMain
             // 
             tblMain.ColumnCount = 1;
             tblMain.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            tblMain.Controls.Add(gRecipeResults, 0, 1);
+            tblMain.Controls.Add(gRecipes, 0, 1);
             tblMain.Controls.Add(btnNewRecipe, 0, 0);
             tblMain.Dock = DockStyle.Fill;
             tblMain.Location = new Point(0, 0);
@@ -52,13 +52,13 @@
             // 
             // gRecipeResults
             // 
-            gRecipeResults.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            gRecipeResults.Dock = DockStyle.Fill;
-            gRecipeResults.Location = new Point(3, 58);
-            gRecipeResults.Name = "gRecipeResults";
-            gRecipeResults.RowHeadersWidth = 51;
-            gRecipeResults.Size = new Size(673, 474);
-            gRecipeResults.TabIndex = 1;
+            gRecipes.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            gRecipes.Dock = DockStyle.Fill;
+            gRecipes.Location = new Point(3, 58);
+            gRecipes.Name = "gRecipeResults";
+            gRecipes.RowHeadersWidth = 51;
+            gRecipes.Size = new Size(673, 474);
+            gRecipes.TabIndex = 1;
             // 
             // btnNewRecipe
             // 
@@ -68,28 +68,28 @@
             btnNewRecipe.Location = new Point(3, 3);
             btnNewRecipe.Name = "btnNewRecipe";
             btnNewRecipe.Size = new Size(139, 49);
-            btnNewRecipe.TabIndex = 2;
+            btnNewRecipe.TabIndex = 0;
             btnNewRecipe.Text = "New Recipe";
             btnNewRecipe.UseVisualStyleBackColor = true;
             // 
-            // frmSearchRecipes
+            // frmRecipeList
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(679, 535);
             Controls.Add(tblMain);
-            Name = "frmSearchRecipes";
+            Name = "frmRecipeList";
             Text = "Recipe List";
             tblMain.ResumeLayout(false);
             tblMain.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)gRecipeResults).EndInit();
+            ((System.ComponentModel.ISupportInitialize)gRecipes).EndInit();
             ResumeLayout(false);
         }
 
         #endregion
 
         private TableLayoutPanel tblMain;
-        private DataGridView gRecipeResults;
+        private DataGridView gRecipes;
         private Button btnNewRecipe;
     }
 }

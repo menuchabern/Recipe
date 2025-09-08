@@ -8,36 +8,41 @@ namespace RecipeWinForms
         {
             InitializeComponent();
             this.Activated += FrmRecipeList_Activated;
-            WindowsFormsUtility.FormatGridForSearchResult(gRecipeResults, "recipe");
-            gRecipeResults.CellDoubleClick += GRecipeResults_CellDoubleClick;
+            WindowsFormsUtility.FormatGridForSearchResult(gRecipes);
+            gRecipes.CellDoubleClick += GRecipeResults_CellDoubleClick;
+            gRecipes.KeyDown += GRecipes_KeyDown;
             btnNewRecipe.Click += BtnNew_Click;
         }
+
 
         private void BindData()
         {
             DataTable dt = Recipe.SearchRecipe();
-            gRecipeResults.DataSource = dt;
-            
-            string[] columnsToHide = {"datedrafted", "datearchived", "datepublished", "cuisine" };
+            gRecipes.DataSource = dt;
+
+            string[] columnsToHide = { "datedrafted", "datearchived", "datepublished", "cuisine" };
             foreach (string colName in columnsToHide)
             {
-                if (gRecipeResults.Columns.Contains(colName))
+                if (gRecipes.Columns.Contains(colName))
                 {
-                    gRecipeResults.Columns[colName].Visible = false;
+                    gRecipes.Columns[colName].Visible = false;
                 }
             }
-            WindowsFormsUtility.FormatGridForSearchResult(gRecipeResults, "recipe");
+            WindowsFormsUtility.FormatGridForSearchResult(gRecipes);
         }
 
-        private void ShowPresidentForm(int rowindex)
+        public void ShowRecipeForm(int rowindex)
         {
             int id = 0;
             if (rowindex > -1)
             {
-                id = (int)gRecipeResults.Rows[rowindex].Cells["RecipeID"].Value;
+                id = WindowsFormsUtility.GetIdFromGrid(gRecipes, rowindex, "RecipeId");
+                    //(int)gRecipes.Rows[rowindex].Cells["RecipeID"].Value;
             }
-            frmRecipe frmrecipe = new frmRecipe();
-            frmrecipe.ShowResultsForm(id);
+            if (this.MdiParent != null && this.MdiParent is frmMain)
+            {
+                ((frmMain)this.MdiParent).OpenForm(typeof(frmRecipe), id);
+            }
         }
 
         private void FrmRecipeList_Activated(object? sender, EventArgs e)
@@ -47,12 +52,21 @@ namespace RecipeWinForms
 
         private void GRecipeResults_CellDoubleClick(object? sender, DataGridViewCellEventArgs e)
         {
-            ShowPresidentForm(e.RowIndex);
+            ShowRecipeForm(e.RowIndex);
         }
 
         private void BtnNew_Click(object? sender, EventArgs e)
         {
-            ShowPresidentForm(-1);
+            ShowRecipeForm(-1);
+        }
+
+        private void GRecipes_KeyDown(object? sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                ShowRecipeForm(gRecipes.SelectedRows[0].Index);
+                e.SuppressKeyPress = true;
+            }
         }
     }
 }

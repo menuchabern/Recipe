@@ -24,12 +24,21 @@ namespace RecipeSystem
 
         public static void Save(DataTable dtrecipe)
         {
-            if (dt.Rows.Count == 0)
+            if (dtrecipe.Rows.Count == 0)
             {
                 throw new Exception("Cannot save because there are no rows in the table");
             }
-
             DataRow r = dtrecipe.Rows[0];
+            SQLUtility.SaveDataRow(r, "RecipeUpdate");
+        }
+
+        public static void SaveTab(DataTable dt, int recipeid, string sprocname)
+        {
+            foreach (DataRow r in dt.Select("", "", DataViewRowState.Added))
+            {
+                r["recipeId"] = recipeid;
+            }
+            SQLUtility.SaveDataTable(dt, sprocname);
         }
 
         public static void Delete(DataTable dtrecipe)
@@ -40,22 +49,24 @@ namespace RecipeSystem
             SQLUtility.ExecuteSQL(cmd);
         }
 
-        public static DataTable GetUserNameList()
+        public static DataTable GetList(string sprocname, bool includeblank = false)
         {
             DataTable dt = new();
-            SqlCommand cmd = SQLUtility.GetSQLCommand("UserNameGet");
+            SqlCommand cmd = SQLUtility.GetSQLCommand(sprocname);
             SQLUtility.SetParamValue(cmd, "@All", 1);
+            SQLUtility.SetParamValue(cmd, "@includeblank", includeblank);
             dt = SQLUtility.GetDataTable(cmd);
             return dt;
         }
 
-        public static DataTable GetCuisineList()
+        public static DataTable LoadRecipeTabs(int recipeid, string sprocname)
         {
             DataTable dt = new();
-            SqlCommand cmd = SQLUtility.GetSQLCommand("CuisineGet");
-            SQLUtility.SetParamValue(cmd, "@All", 1);
+            SqlCommand cmd = SQLUtility.GetSQLCommand(sprocname);
+            SQLUtility.SetParamValue(cmd, "@RecipeId", recipeid);
             dt = SQLUtility.GetDataTable(cmd);
             return dt;
         }
+
     }
 }

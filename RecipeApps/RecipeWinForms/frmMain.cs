@@ -1,4 +1,6 @@
-﻿namespace RecipeWinForms
+﻿using System.Linq.Expressions;
+
+namespace RecipeWinForms
 {
     public partial class frmMain : Form
     {
@@ -10,11 +12,13 @@
             this.Shown += FrmMain_Shown;
             mnuDashboard.Click += MnuDashboard_Click;
             mnuRecipeList.Click += MnuRecipeList_Click;
+            mnuNewRecipe.Click += MnuNewRecipe_Click;
         }
+
 
         public void OpenForm(Type frmtype, int pkvalue = 0)
         {
-            bool exists = WindowsFormsUtility.IsFormOpen(frmtype);
+            bool exists = WindowsFormsUtility.IsFormOpen(frmtype, pkvalue);
             if (exists == false)
             {
                 Form? newfrm = null;
@@ -27,6 +31,12 @@
                 {
                     frmRecipeList f = new();
                     newfrm = f;
+                }
+                else if (frmtype == typeof(frmRecipe))
+                {
+                    frmRecipe f = new();
+                    newfrm = f;
+                    f.LoadResultsForm(pkvalue);
                 }
                 if (newfrm != null)
                 {
@@ -74,6 +84,11 @@
         private void MnuCascadeWindows_Click(object? sender, EventArgs e)
         {
             LayoutMdi(MdiLayout.Cascade);
+        }
+
+        private void MnuNewRecipe_Click(object? sender, EventArgs e)
+        {
+            OpenForm(typeof(frmRecipe));
         }
     }
 }
