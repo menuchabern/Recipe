@@ -38,6 +38,12 @@ namespace RecipeWinForms
                     newfrm = f;
                     f.LoadResultsForm(pkvalue);
                 }
+                else if(frmtype == typeof(frmChangeStatus))
+                {
+                    frmChangeStatus f = new();
+                    newfrm = f;
+                    f.LoadForm(pkvalue);
+                }
                 if (newfrm != null)
                 {
                     newfrm.MdiParent = this;

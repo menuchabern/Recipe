@@ -20,9 +20,11 @@ namespace RecipeWinForms
             this.FormClosing += FrmRecipe_FormClosing;
             gIngredients.DataError += TabGrid_DataError;
             gSteps.DataError += TabGrid_DataError;
-            gIngredients.CellContentClick += GIngredients_CellContentClick; ;
-            gSteps.CellContentClick += GSteps_CellContentClick; ;
+            gIngredients.CellContentClick += GIngredients_CellContentClick;
+            gSteps.CellContentClick += GSteps_CellContentClick;
+            btnChangeStatus.Click += BtnChangeStatus_Click;
         }
+
 
         private string GetFormTitle()
         {
@@ -84,6 +86,13 @@ namespace RecipeWinForms
                     btn.Enabled = true;
                 }
             }
+            if (dtrecipe.Columns.Contains("RecipeStatus"))
+            {
+                if (dtrecipe.Rows.Count > 0 && dtrecipe.Rows[0]["RecipeStatus"].ToString() == "Archived")
+                {
+                    btnChangeStatus.Text = "Status Dates";
+                }
+            }
         }
 
         private void LoadStepsTab()
@@ -117,10 +126,10 @@ namespace RecipeWinForms
                 DataRowView currentrow = (DataRowView)bindsource.Current;
                 currentrow["RecipeStatus"] = "Drafted";
                 bindsource.ResetCurrentItem();
+                bindsource.ResetBindings(false);
 
                 EnableDisableButtons();
                 dtrecipe.AcceptChanges();
-                bindsource.ResetBindings(false);
                 recipeid = SQLUtility.GetValueFromFirstRowAsInt(dtrecipe, "Recipeid");
                 this.Tag = recipeid;
                 this.Text = GetFormTitle();
@@ -307,6 +316,14 @@ namespace RecipeWinForms
         {
             var grid = sender as DataGridView;
             MessageBox.Show($"Please put a proper value into {grid.Columns[e.ColumnIndex].HeaderText}", Application.ProductName);
+        }
+
+        private void BtnChangeStatus_Click(object? sender, EventArgs e)
+        {
+            if (this.MdiParent != null && this.MdiParent is frmMain)
+            {
+                ((frmMain)this.MdiParent).OpenForm(typeof(frmChangeStatus), recipeid);
+            }
         }
     }
 }

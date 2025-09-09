@@ -74,5 +74,14 @@ namespace RecipeSystem
             cmd.Parameters[param].Value = id;
             SQLUtility.ExecuteSQL(cmd);
         }
+
+        public static void UpdateRecipeStatus(DataTable dtrecipe, string datetype, int recipeid) 
+        {
+            SqlCommand cmd = SQLUtility.GetSQLCommand("RecipeDatesUpdate");
+            SQLUtility.SetParamValue(cmd, "@" + datetype, DateTime.Today);
+            SQLUtility.SetParamValue(cmd, "@recipeid", recipeid);
+            SQLUtility.ExecuteSQL(cmd);
+
+        }
     }
 }
