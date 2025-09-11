@@ -45,6 +45,7 @@ namespace RecipeWinForms
                 if (this.MdiParent != null && this.MdiParent is frmMain)
                 {
                     ((frmMain)this.MdiParent).OpenForm(typeof(frmRecipe), newrecipeid);
+                    this.Close();
                 }
             }
             catch (Exception ex)
