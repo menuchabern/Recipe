@@ -13,6 +13,7 @@ namespace RecipeWinForms
             mnuDashboard.Click += MnuDashboard_Click;
             mnuRecipeList.Click += MnuRecipeList_Click;
             mnuNewRecipe.Click += MnuNewRecipe_Click;
+            mnuCloneARecipe.Click += MnuCloneARecipe_Click;
         }
 
 
@@ -43,6 +44,11 @@ namespace RecipeWinForms
                     frmChangeStatus f = new();
                     newfrm = f;
                     f.LoadForm(pkvalue);
+                }
+                else if(frmtype == typeof(frmCloneRecipe))
+                {
+                    frmCloneRecipe f = new();
+                    newfrm = f;
                 }
                 if (newfrm != null)
                 {
@@ -95,6 +101,11 @@ namespace RecipeWinForms
         private void MnuNewRecipe_Click(object? sender, EventArgs e)
         {
             OpenForm(typeof(frmRecipe));
+        }
+
+        private void MnuCloneARecipe_Click(object? sender, EventArgs e)
+        {
+            OpenForm(typeof(frmCloneRecipe));
         }
     }
 }

@@ -75,13 +75,33 @@ namespace RecipeSystem
             SQLUtility.ExecuteSQL(cmd);
         }
 
-        public static void UpdateRecipeStatus(DataTable dtrecipe, string datetype, int recipeid) 
+        public static void UpdateRecipeStatus(DataTable dtrecipe, string datetype, int recipeid)
         {
             SqlCommand cmd = SQLUtility.GetSQLCommand("RecipeDatesUpdate");
             SQLUtility.SetParamValue(cmd, "@" + datetype, DateTime.Today);
             SQLUtility.SetParamValue(cmd, "@recipeid", recipeid);
             SQLUtility.ExecuteSQL(cmd);
+        }
 
+        public static bool CheckIfAlreadyCloneOfThisRecipe(string recipename)
+        {
+            bool b = false;
+            SqlCommand cmdcheck = SQLUtility.GetSQLCommand("RecipeGet");
+            SQLUtility.SetParamValue(cmdcheck, "@RecipeName", recipename + " - clone");
+            DataTable dtcheck = SQLUtility.GetDataTable(cmdcheck);
+            if (dtcheck.Rows.Count > 0)
+            {
+                b = true;
+            }
+            return b;
+        }
+
+        public static int CloneRecipe(int recipeid)
+        {
+            SqlCommand cmd = SQLUtility.GetSQLCommand("RecipeClone", false);
+            SqlParameter param = SQLUtility.SetOutputParameter(cmd, "@RecipeId", recipeid);
+            SQLUtility.ExecuteSQL(cmd);
+            return (int)param.Value;
         }
     }
 }
