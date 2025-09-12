@@ -1,12 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.Data.SqlClient;
+using System.Data;
 
 namespace RecipeSystem
 {
-    internal class Cookbooks
+    public class Cookbooks
     {
+        public static DataTable GetCookbookList()
+        {
+            SqlCommand cmd = SQLUtility.GetSQLCommand("CookbookGet");
+            SQLUtility.SetParamValue(cmd, "@all", 1);
+            return SQLUtility.GetDataTable(cmd);
+        }
+
+        public static DataTable LoadCookbook(int cookbookid)
+        {
+            SqlCommand cmd = SQLUtility.GetSQLCommand("CookbookGet");
+            SQLUtility.SetParamValue(cmd, "@CookbookId", cookbookid);
+            return SQLUtility.GetDataTable(cmd);
+        }
     }
 }

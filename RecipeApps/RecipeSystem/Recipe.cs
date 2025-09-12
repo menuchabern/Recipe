@@ -49,15 +49,7 @@ namespace RecipeSystem
             SQLUtility.ExecuteSQL(cmd);
         }
 
-        public static DataTable GetList(string sprocname, bool includeblank = false)
-        {
-            DataTable dt = new();
-            SqlCommand cmd = SQLUtility.GetSQLCommand(sprocname);
-            SQLUtility.SetParamValue(cmd, "@All", 1);
-            SQLUtility.SetParamValue(cmd, "@includeblank", includeblank);
-            dt = SQLUtility.GetDataTable(cmd);
-            return dt;
-        }
+        
 
         public static DataTable LoadRecipeTabs(int recipeid, string sprocname)
         {

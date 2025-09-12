@@ -48,10 +48,10 @@ namespace RecipeWinForms
                 dtrecipe.Rows.Add();
             }
 
-            DataTable dtusername = Recipe.GetList("UserNameGet", true);
+            DataTable dtusername = SQLUtility.GetList("UserNameGet", true);
             WindowsFormsUtility.SetListBinding(lstUserName, dtusername, dtrecipe, "UserName");
 
-            DataTable dtcuisine = Recipe.GetList("CuisineGet", true);
+            DataTable dtcuisine = SQLUtility.GetList("CuisineGet", true);
             WindowsFormsUtility.SetListBinding(lstCuisine, dtcuisine, dtrecipe, "Cuisine");
 
             WindowsFormsUtility.SetControlBinding(txtRecipeName, bindsource);

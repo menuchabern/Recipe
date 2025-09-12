@@ -192,7 +192,7 @@
             MainMenuStrip = menuStrip1;
             Margin = new Padding(4);
             Name = "frmMain";
-            Text = "Main";
+            Text = "Hearty Hearth";
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();
             ResumeLayout(false);

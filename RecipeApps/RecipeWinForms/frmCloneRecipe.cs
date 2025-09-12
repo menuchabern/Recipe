@@ -14,7 +14,7 @@ namespace RecipeWinForms
 
         private void BindData()
         {
-            DataTable dtrecipe = Recipe.GetList("RecipeGet", true);
+            DataTable dtrecipe = SQLUtility.GetList("RecipeGet", true);
             WindowsFormsUtility.SetListBinding(lstRecipeName, dtrecipe, null, "recipe");
         }
 

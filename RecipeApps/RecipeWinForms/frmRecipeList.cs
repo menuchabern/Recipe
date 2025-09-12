@@ -8,7 +8,6 @@ namespace RecipeWinForms
         {
             InitializeComponent();
             this.Activated += FrmRecipeList_Activated;
-            WindowsFormsUtility.FormatGridForSearchResult(gRecipes);
             gRecipes.CellDoubleClick += GRecipeResults_CellDoubleClick;
             gRecipes.KeyDown += GRecipes_KeyDown;
             btnNewRecipe.Click += BtnNew_Click;
@@ -37,7 +36,6 @@ namespace RecipeWinForms
             if (rowindex > -1)
             {
                 id = WindowsFormsUtility.GetIdFromGrid(gRecipes, rowindex, "RecipeId");
-                    //(int)gRecipes.Rows[rowindex].Cells["RecipeID"].Value;
             }
             if (this.MdiParent != null && this.MdiParent is frmMain)
             {
