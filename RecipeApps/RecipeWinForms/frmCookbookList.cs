@@ -1,7 +1,4 @@
-﻿using RecipeSystem;
-using System.Data;
-
-namespace RecipeWinForms
+﻿namespace RecipeWinForms
 {
     public partial class frmCookbookList : Form
     {
@@ -45,10 +42,7 @@ namespace RecipeWinForms
 
         private void BtnNewCookbook_Click(object? sender, EventArgs e)
         {
-            if (this.MdiParent != null && this.MdiParent is frmMain)
-            {
-                ((frmMain)this.MdiParent).OpenForm(typeof(frmCookbook));
-            }
+            ShowCookbookForm(-1);
         }
 
         private void GCookbookList_CellDoubleClick(object? sender, DataGridViewCellEventArgs e)

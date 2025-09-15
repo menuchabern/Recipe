@@ -209,11 +209,11 @@
             // 
             // ckbActiveStatus
             // 
-            ckbActiveStatus.Dock = DockStyle.Fill;
+            ckbActiveStatus.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             ckbActiveStatus.Font = new Font("Segoe UI", 20F);
             ckbActiveStatus.Location = new Point(193, 219);
             ckbActiveStatus.Name = "ckbActiveStatus";
-            ckbActiveStatus.Size = new Size(577, 47);
+            ckbActiveStatus.Size = new Size(18, 47);
             ckbActiveStatus.TabIndex = 5;
             ckbActiveStatus.UseVisualStyleBackColor = true;
             // 

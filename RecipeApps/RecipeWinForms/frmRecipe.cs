@@ -1,7 +1,4 @@
-﻿using System.Data;
-using System.Windows.Forms;
-
-namespace RecipeWinForms
+﻿namespace RecipeWinForms
 {
     public partial class frmRecipe : Form
     {
@@ -71,7 +68,7 @@ namespace RecipeWinForms
         private void EnableDisableButtons()
         {
             List<Button> btnlist = new() { btnDelete, btnChangeStatus, btnIngredientsSave, btnStepsSave };
-            if(this.Text == "New Recipe")  
+            if (this.Text == "New Recipe")
             {
                 foreach (Button btn in btnlist)
                 {
@@ -79,7 +76,7 @@ namespace RecipeWinForms
                 }
 
             }
-            else if(this.Text != "New Recipe")
+            else if (this.Text != "New Recipe")
             {
                 foreach (Button btn in btnlist)
                 {
@@ -128,16 +125,16 @@ namespace RecipeWinForms
                 bindsource.ResetCurrentItem();
                 bindsource.ResetBindings(false);
 
-                EnableDisableButtons();
                 dtrecipe.AcceptChanges();
                 recipeid = SQLUtility.GetValueFromFirstRowAsInt(dtrecipe, "Recipeid");
                 this.Tag = recipeid;
                 this.Text = GetFormTitle();
+                EnableDisableButtons();
                 b = true;
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Recipe");
+                MessageBox.Show(ex.Message, Application.ProductName);
             }
             finally
             {

@@ -1,6 +1,4 @@
-﻿using System.Data;
-
-namespace RecipeWinForms
+﻿namespace RecipeWinForms
 {
     public partial class frmRecipeList : Form
     {

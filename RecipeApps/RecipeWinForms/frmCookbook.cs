@@ -1,7 +1,4 @@
-﻿using RecipeSystem;
-using System.Data;
-
-namespace RecipeWinForms
+﻿namespace RecipeWinForms
 {
     public partial class frmCookbook : Form
     {
@@ -12,7 +9,9 @@ namespace RecipeWinForms
         public frmCookbook()
         {
             InitializeComponent();
+            btnSave.Click += BtnSave_Click;
         }
+
 
         public void LoadCookbookForm(int cookbookval)
         {
@@ -33,6 +32,16 @@ namespace RecipeWinForms
             WindowsFormsUtility.SetControlBinding(txtDateCreated, bindsource);
             WindowsFormsUtility.SetControlBinding(ckbActiveStatus, bindsource);
             this.Text = GetFormTitle();
+            SetCookbookRecipes();
+        }
+
+        private void SetCookbookRecipes()
+        {
+            gRecipes.Columns.Clear();
+            gRecipes.DataSource = Cookbooks.CookbookRecipeTab(cookbookid);
+            WindowsFormsUtility.AddDeleteButtonToGrid(gRecipes, "deletecol");
+            WindowsFormsUtility.AddComboBoxToGrid(gRecipes, SQLUtility.GetDataTableForList("RecipeGet", 1), "Recipe", "RecipeName");
+            WindowsFormsUtility.FormatGridForEdit(gRecipes);
         }
 
         private string GetFormTitle()
@@ -44,6 +53,36 @@ namespace RecipeWinForms
                 title = SQLUtility.GetValueFromFirstRowAsString(dtcookbook, "CookbookName");
             }
             return title;
+        }
+
+        private bool Save(DataTable dtcookbook)
+        {
+            bool b = false;
+            Application.UseWaitCursor = true;
+            try
+            {
+                Cookbooks.CookbookSave(dtcookbook);
+                b = true;
+                bindsource.ResetBindings(false);
+                dtcookbook.AcceptChanges();
+                cookbookid = SQLUtility.GetValueFromFirstRowAsInt(dtcookbook, "cookbookid");
+                this.Tag = cookbookid;
+                this.Text = GetFormTitle();
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message, Application.ProductName);
+            }
+            finally
+            {
+                Application.UseWaitCursor = false;
+            }
+            return b;
+        }
+
+        private void BtnSave_Click(object? sender, EventArgs e)
+        {
+            Save(dtcookbook);
         }
     }
 }
