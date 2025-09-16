@@ -1,4 +1,6 @@
-﻿namespace RecipeSystem
+﻿using RecipeSystem;
+
+namespace RecipeSystem
 {
     public class Cookbooks
     {
@@ -31,6 +33,30 @@
             }
             DataRow r = dtcookbook.Rows[0];
             SQLUtility.SaveDataRow(r, "CookbookUpdate");
+        }
+
+        public static void Delete(DataTable dtcookbook)
+        {
+            int id = (int)dtcookbook.Rows[0]["cookbookid"];
+            SqlCommand cmd = SQLUtility.GetSQLCommand("cookbookdelete");
+            SQLUtility.SetParamValue(cmd, "@cookbookid", id);
+            SQLUtility.ExecuteSQL(cmd);
+        }
+
+        public static void DeleteCookbookRecipe(int cookbookrecipeid)
+        {
+            SqlCommand cmd = SQLUtility.GetSQLCommand("CookbookRecipeDelete");
+            SQLUtility.SetParamValue(cmd, "@CookbookRecipeid", cookbookrecipeid);
+            SQLUtility.ExecuteSQL(cmd);
+        }
+
+        public static void SaveCookbookRecipe(int cookbookid, DataTable dt)
+        {
+            foreach (DataRow r in dt.Select("", "", DataViewRowState.Added))
+            {
+                r["cookbookid"] = cookbookid;
+            }
+            SQLUtility.SaveDataTable(dt, "cookbookrecipeUpdate");
         }
     }
 }

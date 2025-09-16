@@ -13,9 +13,9 @@ begin
 	from cookbook c
 	join username us
 	on us.usernameid = c.usernameid
-	join cookbookrecipe cr 
+	left join cookbookrecipe cr 
 	on cr.cookbookid = c.cookbookid
-	join recipe r
+	left join recipe r
 	on r.recipeid = cr.recipeid
 	where @all = 1
 	or c.cookbookid = @cookbookid

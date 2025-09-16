@@ -6,7 +6,7 @@ create or alter procedure dbo.RecipeGet(
 )
 as 
 begin
-	select r.recipeid, r.RecipeName, r.RecipeStatus, u.UserName, r.Calories, count(*) as NumIngredients , r.datedrafted, r.datearchived, r.datepublished, c.cuisine, r.usernameid, r.cuisineid
+	select r.recipeid, r.RecipeName, r.RecipeStatus, u.UserName, r.Calories, count(ri.RecipeIngredientId) as NumIngredients , r.datedrafted, r.datearchived, r.datepublished, c.cuisine, r.usernameid, r.cuisineid
 	from recipe r 
 	join username u 
 	on r.usernameid = u.usernameid 
