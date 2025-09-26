@@ -61,10 +61,10 @@ namespace RecipeWinForms
         private void LoadCookbookRecipes()
         {
             gRecipes.Columns.Clear();
-            dtcookbookrecipe = Cookbooks.CookbookRecipeTab(cookbookid);
+            dtcookbookrecipe = Cookbooks.LoadCookbookRecipes(cookbookid);
             gRecipes.DataSource = dtcookbookrecipe;
             WindowsFormsUtility.AddDeleteButtonToGrid(gRecipes, "deletecol");
-            WindowsFormsUtility.AddComboBoxToGrid(gRecipes, SQLUtility.GetDataTableForList("RecipeGet", 1), "Recipe", "RecipeName");
+            WindowsFormsUtility.AddComboBoxToGrid(gRecipes, SQLUtility.GetList("RecipeGet", true), "Recipe", "RecipeName");
             WindowsFormsUtility.FormatGridForEdit(gRecipes);
         }
 

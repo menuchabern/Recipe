@@ -106,8 +106,8 @@
             gIngredients.Columns.Clear();
             dtingredients = Recipe.LoadRecipeTabs(recipeid, "RecipeIngredientsGet");
             gIngredients.DataSource = dtingredients;
-            WindowsFormsUtility.AddComboBoxToGrid(gIngredients, SQLUtility.GetDataTableForList("measurementget", 1), "measurementtype", "measurementtype");
-            WindowsFormsUtility.AddComboBoxToGrid(gIngredients, SQLUtility.GetDataTableForList("IngredientGet", 1), "Ingredient", "IngredientName");
+            WindowsFormsUtility.AddComboBoxToGrid(gIngredients, SQLUtility.GetList("measurementget", true), "measurementtype", "measurementtype");
+            WindowsFormsUtility.AddComboBoxToGrid(gIngredients, SQLUtility.GetList("IngredientGet", true), "Ingredient", "IngredientName");
             WindowsFormsUtility.AddDeleteButtonToGrid(gIngredients, "deleteingredientscol");
             WindowsFormsUtility.FormatGridForEdit(gIngredients);
         }

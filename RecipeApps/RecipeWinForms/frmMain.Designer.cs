@@ -42,7 +42,7 @@
             mnuNewCookbook = new ToolStripMenuItem();
             mnuAutoCreateCookbook = new ToolStripMenuItem();
             mnuDataMaintenance = new ToolStripMenuItem();
-            editDataToolStripMenuItem = new ToolStripMenuItem();
+            mnuEditData = new ToolStripMenuItem();
             mnuWindows = new ToolStripMenuItem();
             mnuCascadeWindows = new ToolStripMenuItem();
             mnuTileWindows = new ToolStripMenuItem();
@@ -140,16 +140,16 @@
             // 
             // mnuDataMaintenance
             // 
-            mnuDataMaintenance.DropDownItems.AddRange(new ToolStripItem[] { editDataToolStripMenuItem });
+            mnuDataMaintenance.DropDownItems.AddRange(new ToolStripItem[] { mnuEditData });
             mnuDataMaintenance.Name = "mnuDataMaintenance";
             mnuDataMaintenance.Size = new Size(194, 32);
             mnuDataMaintenance.Text = "Data Maintenanace";
             // 
-            // editDataToolStripMenuItem
+            // mnuEditData
             // 
-            editDataToolStripMenuItem.Name = "editDataToolStripMenuItem";
-            editDataToolStripMenuItem.Size = new Size(178, 32);
-            editDataToolStripMenuItem.Text = "Edit Data";
+            mnuEditData.Name = "mnuEditData";
+            mnuEditData.Size = new Size(224, 32);
+            mnuEditData.Text = "Edit Data";
             // 
             // mnuWindows
             // 
@@ -215,7 +215,7 @@
         private ToolStripMenuItem mnuNewCookbook;
         private ToolStripMenuItem mnuAutoCreateCookbook;
         private ToolStripMenuItem mnuDataMaintenance;
-        private ToolStripMenuItem editDataToolStripMenuItem;
+        private ToolStripMenuItem mnuEditData;
         private ToolStripMenuItem mnuWindows;
         private ToolStripMenuItem mnuCascadeWindows;
         private ToolStripMenuItem mnuTileWindows;

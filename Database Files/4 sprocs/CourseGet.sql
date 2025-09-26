@@ -1,4 +1,4 @@
-create or alter proc dbo.MeasurementGet(
+create or alter proc dbo.CourseGet(
 	@All int = 0,
 	@IncludeBlank int = 0,
 	@Message varchar(500) = ''
@@ -8,13 +8,13 @@ begin
 	declare @return int = 0
 
 	select *
-	from measurementtype
+	from CourseType
 	where @All = 1
-	union select 0, ''
+	union select 0, '', 0
 	where @IncludeBlank = 1
-	order by measurementtype
+	order by CourseName
 	
 	return @return
 end
 
---exec MeasurementGet @all = 1
+--exec courseget @all = 1

@@ -11,12 +11,12 @@ begin
 
 	select @All = isnull(@All,0), @UserNameID = isnull(@UserNameId,0), @IncludeBlank = ISNULL(@IncludeBlank, 0)
 
-	Select UserNameID, firstname, lastname, UserName
+	Select UserNameID, FirstName, LastName, UserName, FullName = FirstName + LastName
 	from username
 	where @All = 1
 	or usernameid = @usernameid
 	or (@userName <> '' and UserName like '%' + @UserName + '%')
-	union select 0, '', '', ''
+	union select 0, '', '', '', ''
 	where @IncludeBlank = 1
 	order by UserName
 

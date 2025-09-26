@@ -18,7 +18,7 @@ namespace RecipeSystem
             return SQLUtility.GetDataTable(cmd);
         }
 
-        public static DataTable CookbookRecipeTab(int cookbookid)
+        public static DataTable LoadCookbookRecipes(int cookbookid)
         {
             SqlCommand cmd = SQLUtility.GetSQLCommand("CookbookRecipesGet", false);
             SQLUtility.SetOutputParameter(cmd, "@Cookbookid", cookbookid);
@@ -57,6 +57,15 @@ namespace RecipeSystem
                 r["cookbookid"] = cookbookid;
             }
             SQLUtility.SaveDataTable(dt, "cookbookrecipeUpdate");
+        }
+
+        public static int AutoCreateCookbook(int cookbookid)
+        {
+            SqlCommand cmd = SQLUtility.GetSQLCommand("CookbookAutoCreate", false);
+            SQLUtility.SetOutputParameter(cmd, "@UserNameId", cookbookid);
+            SqlParameter param = SQLUtility.SetOutputParameter(cmd, "@NewCookbookId", 0);
+            SQLUtility.ExecuteSQL(cmd);
+            return (int)param.Value;
         }
     }
 }

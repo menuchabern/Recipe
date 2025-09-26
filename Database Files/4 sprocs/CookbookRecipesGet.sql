@@ -6,7 +6,7 @@ as
 begin
 	declare @return int = 0
 
-	select cr.RecipeID, cr.RecipeSequence
+	select cr.RecipeID, cr.RecipeSequence, cr.CookbookRecipeID, c.CookbookID
 	from Cookbook c
 	join CookbookRecipe cr
 	on c.CookbookID = cr.CookbookID

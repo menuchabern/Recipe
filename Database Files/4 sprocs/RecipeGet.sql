@@ -1,6 +1,6 @@
 create or alter procedure dbo.RecipeGet(
 	@All bit = 0,
-	@RecipeName varchar(40)= '',
+	@RecipeName varchar(40) = '',
 	@IncludeBlank int = 0,
 	@RecipeID int = 0
 )
