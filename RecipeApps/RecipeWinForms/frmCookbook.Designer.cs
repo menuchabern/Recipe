@@ -32,7 +32,7 @@
             btnSave = new Button();
             btnDelete = new Button();
             lblCookbookName = new Label();
-            lblUserName = new Label();
+            lblAuthor = new Label();
             lblPrice = new Label();
             lblActive = new Label();
             txtCookbookName = new TextBox();
@@ -60,7 +60,7 @@
             tableLayoutPanel1.Controls.Add(btnSave, 0, 0);
             tableLayoutPanel1.Controls.Add(btnDelete, 1, 0);
             tableLayoutPanel1.Controls.Add(lblCookbookName, 0, 1);
-            tableLayoutPanel1.Controls.Add(lblUserName, 0, 2);
+            tableLayoutPanel1.Controls.Add(lblAuthor, 0, 2);
             tableLayoutPanel1.Controls.Add(lblPrice, 0, 3);
             tableLayoutPanel1.Controls.Add(lblActive, 0, 4);
             tableLayoutPanel1.Controls.Add(txtCookbookName, 1, 1);
@@ -114,15 +114,15 @@
             lblCookbookName.TabIndex = 2;
             lblCookbookName.Text = "Cookbook Name";
             // 
-            // lblUserName
+            // lblAuthor
             // 
-            lblUserName.AutoSize = true;
-            lblUserName.Location = new Point(20, 112);
-            lblUserName.Margin = new Padding(20, 20, 3, 0);
-            lblUserName.Name = "lblUserName";
-            lblUserName.Size = new Size(108, 28);
-            lblUserName.TabIndex = 3;
-            lblUserName.Text = "User Name";
+            lblAuthor.AutoSize = true;
+            lblAuthor.Location = new Point(20, 112);
+            lblAuthor.Margin = new Padding(20, 20, 3, 0);
+            lblAuthor.Name = "lblAuthor";
+            lblAuthor.Size = new Size(73, 28);
+            lblAuthor.TabIndex = 3;
+            lblAuthor.Text = "Author";
             // 
             // lblPrice
             // 
@@ -291,7 +291,7 @@
         private Button btnSave;
         private Button btnDelete;
         private Label lblCookbookName;
-        private Label lblUserName;
+        private Label lblAuthor;
         private Label lblPrice;
         private Label lblActive;
         private TextBox txtCookbookName;

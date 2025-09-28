@@ -19,7 +19,7 @@ begin
 		from UserName
 	end
 
-	select c.CookbookName, us.UserName, NumRecipes = count(r.recipeid), c.Price, c.cookbookid, c.usernameid, c.datecreated, c.activestatus
+	select c.CookbookName, Author = us.UserName, NumRecipes = count(r.recipeid), c.Price, c.cookbookid, c.usernameid, c.datecreated, c.activestatus
 	from cookbook c
 	join username us
 	on us.usernameid = c.usernameid

@@ -12,7 +12,7 @@ begin
 			insert Cookbook(UserNameId, CookbookName, Price, ActiveStatus, DateCreated)
 			select un.usernameid, 
 				concat('Recipes by ', un.firstname, ' ', un.lastname),
-				cast(COUNT(r.recipeid) AS decimal(10,2)) * 1.99,
+				COUNT(distinct r.recipeid) * 1.33,
 				1,
 				CAST(GETDATE() AS DATE)
 			from username un

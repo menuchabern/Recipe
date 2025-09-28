@@ -7,6 +7,7 @@ namespace RecipeWinForms
     {
         DataTable dtrecipe;
         BindingSource bindsource = new();
+        string frmtitle = "Change Status";
 
         public frmChangeStatus()
         {
@@ -34,8 +35,6 @@ namespace RecipeWinForms
             WindowsFormsUtility.SetControlBinding(txtDateArchived, bindsource);
 
             recipeid = SQLUtility.GetValueFromFirstRowAsInt(dtrecipe, "Recipeid");
-
-            this.Text = $"{SQLUtility.GetValueFromFirstRowAsString(dtrecipe, "RecipeName")} - Change Status";
         }
 
         private void FrmChangeStatus_Shown(object? sender, EventArgs e)
@@ -61,8 +60,11 @@ namespace RecipeWinForms
                     btnPublish.Enabled = false;
                     btnDraft.Enabled = false;
                     btnArchive.Enabled = false;
+                    frmtitle = "Status Dates";
                     break;
+
             }
+            this.Text = $"{SQLUtility.GetValueFromFirstRowAsString(dtrecipe, "RecipeName")} - {frmtitle}";
         }
 
         private void UpdateDates(string datetype)

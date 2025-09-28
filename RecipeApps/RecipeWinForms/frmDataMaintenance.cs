@@ -3,13 +3,13 @@ using System.Drawing.Design;
 
 namespace RecipeWinForms
 {
-    public partial class frmDataMaintenance : Form
+    public partial class frmEditData : Form
     {
         private enum TableTypeEnum { UserName, Cuisine, Ingredient, MeasurementType, CourseType }
         TableTypeEnum currenttabletype = TableTypeEnum.UserName;
         DataTable dtlist = new();
 
-        public frmDataMaintenance()
+        public frmEditData()
         {
             InitializeComponent();
             this.Shown += FrmDataMaintenance_Shown;

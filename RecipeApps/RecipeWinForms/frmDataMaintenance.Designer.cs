@@ -1,6 +1,6 @@
 ﻿namespace RecipeWinForms
 {
-    partial class frmDataMaintenance
+    partial class frmEditData
     {
         /// <summary>
         /// Required designer variable.
@@ -52,7 +52,7 @@
             tblMain.Controls.Add(gMain, 1, 0);
             tblMain.Dock = DockStyle.Fill;
             tblMain.Location = new Point(0, 0);
-            tblMain.Margin = new Padding(4, 4, 4, 4);
+            tblMain.Margin = new Padding(4);
             tblMain.Name = "tblMain";
             tblMain.RowCount = 2;
             tblMain.RowStyles.Add(new RowStyle(SizeType.Percent, 88.3858261F));
@@ -71,7 +71,7 @@
             pnlRadioButtons.Dock = DockStyle.Fill;
             pnlRadioButtons.FlowDirection = FlowDirection.TopDown;
             pnlRadioButtons.Location = new Point(4, 4);
-            pnlRadioButtons.Margin = new Padding(4, 4, 4, 4);
+            pnlRadioButtons.Margin = new Padding(4);
             pnlRadioButtons.Name = "pnlRadioButtons";
             tblMain.SetRowSpan(pnlRadioButtons, 2);
             pnlRadioButtons.Size = new Size(200, 500);
@@ -155,16 +155,16 @@
             gMain.Size = new Size(639, 442);
             gMain.TabIndex = 2;
             // 
-            // frmDataMaintenance
+            // frmEditData
             // 
             AutoScaleDimensions = new SizeF(11F, 28F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(853, 508);
             Controls.Add(tblMain);
             Font = new Font("Segoe UI", 12F);
-            Margin = new Padding(4, 4, 4, 4);
-            Name = "frmDataMaintenance";
-            Text = "Data Maintenance";
+            Margin = new Padding(4);
+            Name = "frmEditData";
+            Text = "Edit Data";
             tblMain.ResumeLayout(false);
             tblMain.PerformLayout();
             pnlRadioButtons.ResumeLayout(false);

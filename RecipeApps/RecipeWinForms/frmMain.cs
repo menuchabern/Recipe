@@ -73,9 +73,9 @@
                     frmAutoCreateCookbook f = new();
                     newfrm = f;
                 }
-                else if(frmtype == typeof(frmDataMaintenance))
+                else if(frmtype == typeof(frmEditData))
                 {
-                    frmDataMaintenance f = new();
+                    frmEditData f = new();
                     newfrm = f;
                 }
                 if (newfrm != null)
@@ -158,7 +158,7 @@
 
         private void MnuEditData_Click(object? sender, EventArgs e)
         {
-            OpenForm(typeof(frmDataMaintenance));
+            OpenForm(typeof(frmEditData));
         }
     }
 }
