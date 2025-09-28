@@ -1,5 +1,5 @@
-create or alter procedure dbo.CourseUpdate(
-	@CourseId int  output,
+create or alter procedure dbo.CourseTypeUpdate(
+	@CourseTypeId int  output,
 	@CourseName varchar (30),
 	@CourseSequence int,
 	@Message varchar(500) = ''  output
@@ -8,15 +8,14 @@ as
 begin
 	declare @return int = 0
 
-	select @CourseId = isnull(@CourseId,0)
+	select @CourseTypeId = isnull(@CourseTypeId,0)
 	
-	if @CourseId = 0
+	if @CourseTypeId = 0
 	begin
 		insert CourseType(CourseName, CourseSequence)
 		select @CourseName, @CourseSequence
-		from CourseType
 
-		select @CourseId= scope_identity()
+		select @CourseTypeId= scope_identity()
 	end
 	else
 	begin
@@ -24,7 +23,7 @@ begin
 		set
 			CourseName = @CourseName,
 			CourseSequence = @CourseSequence
-		where CourseTypeID = @CourseId
+		where CourseTypeID = @CourseTypeId
 	end
 	
 	return @return

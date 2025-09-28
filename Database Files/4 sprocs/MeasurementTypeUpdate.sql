@@ -1,5 +1,5 @@
-create or alter procedure dbo.MeasurementUpdate(
-	@MeasurementId int  output,
+create or alter procedure dbo.MeasurementTypeUpdate(
+	@MeasurementTypeId int output,
 	@MeasurementType varchar (30),
 	@Message varchar(500) = ''  output
 )
@@ -7,21 +7,21 @@ as
 begin
 	declare @return int = 0
 
-	select @MeasurementId = isnull(@MeasurementId,0)
+	select @MeasurementTypeId = isnull(@MeasurementTypeId,0)
 	
-	if @MeasurementId = 0
+	if @MeasurementTypeId = 0
 	begin
 		insert MeasurementType(MeasurementType)
 		values(@MeasurementType)
 
-		select @MeasurementId= scope_identity()
+		select @MeasurementTypeId= scope_identity()
 	end
 	else
 	begin
 		update MeasurementType
 		set
 			MeasurementType = @MeasurementType
-		where MeasurementTypeID = @MeasurementId
+		where MeasurementTypeID = @MeasurementTypeId
 	end
 	
 	return @return

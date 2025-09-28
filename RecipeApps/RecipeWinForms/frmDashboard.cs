@@ -30,7 +30,7 @@
 
         private void FrmDashboard_Activated(object? sender, EventArgs e)
         {
-            gData.DataSource = DataMaintenanace.DashboardGet();
+            gData.DataSource = DataMaintenance.DashboardGet();
             WindowsFormsUtility.FormatGridForSearchResult(gData);
         }
 

@@ -20,6 +20,7 @@
             gIngredients.CellContentClick += GIngredients_CellContentClick;
             gSteps.CellContentClick += GSteps_CellContentClick;
             btnChangeStatus.Click += BtnChangeStatus_Click;
+            this.Shown += FrmRecipe_Shown;
         }
 
 
@@ -58,9 +59,6 @@
             WindowsFormsUtility.SetControlBinding(txtDatePublished, bindsource);
             WindowsFormsUtility.SetControlBinding(txtDateArchived, bindsource);
             this.Text = GetFormTitle();
-
-            LoadIngredientsTab();
-            LoadStepsTab();
 
             EnableDisableButtons();
         }
@@ -108,8 +106,8 @@
             gIngredients.DataSource = dtingredients;
             WindowsFormsUtility.AddComboBoxToGrid(gIngredients, SQLUtility.GetList("measurementget", true), "measurementtype", "measurementtype");
             WindowsFormsUtility.AddComboBoxToGrid(gIngredients, SQLUtility.GetList("IngredientGet", true), "Ingredient", "IngredientName");
-            WindowsFormsUtility.AddDeleteButtonToGrid(gIngredients, "deleteingredientscol");
             WindowsFormsUtility.FormatGridForEdit(gIngredients);
+            WindowsFormsUtility.AddDeleteButtonToGrid(gIngredients, "deleteingredientscol");
         }
 
         private bool Save()
@@ -321,6 +319,12 @@
             {
                 ((frmMain)this.MdiParent).OpenForm(typeof(frmChangeStatus), recipeid);
             }
+        }
+
+        private void FrmRecipe_Shown(object? sender, EventArgs e)
+        {
+            LoadIngredientsTab();
+            LoadStepsTab();
         }
     }
 }

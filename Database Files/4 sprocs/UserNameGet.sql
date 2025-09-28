@@ -11,7 +11,7 @@ begin
 
 	select @All = isnull(@All,0), @UserNameID = isnull(@UserNameId,0), @IncludeBlank = ISNULL(@IncludeBlank, 0)
 
-	Select UserNameID, FirstName, LastName, UserName, FullName = FirstName + LastName
+	Select UserNameID, UserName, FirstName, LastName,  FullName = FirstName + LastName
 	from username
 	where @All = 1
 	or usernameid = @usernameid

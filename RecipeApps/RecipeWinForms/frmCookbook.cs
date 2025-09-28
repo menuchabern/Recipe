@@ -12,6 +12,7 @@ namespace RecipeWinForms
         public frmCookbook()
         {
             InitializeComponent();
+            this.Shown += FrmCookbook_Shown;
             btnSave.Click += BtnSave_Click;
             btnDelete.Click += BtnDelete_Click;
             gRecipes.CellContentClick += GRecipes_CellContentClick;
@@ -20,7 +21,7 @@ namespace RecipeWinForms
             gRecipes.DataError += GRecipes_DataError;
         }
 
-       
+
         public void LoadCookbookForm(int cookbookval)
         {
             cookbookid = cookbookval;
@@ -40,7 +41,6 @@ namespace RecipeWinForms
             WindowsFormsUtility.SetControlBinding(txtDateCreated, bindsource);
             WindowsFormsUtility.SetControlBinding(ckbActiveStatus, bindsource);
             this.Text = GetFormTitle();
-            LoadCookbookRecipes();
             EnableDisableButtons();
         }
 
@@ -219,6 +219,11 @@ namespace RecipeWinForms
                         break;
                 }
             }
+        }
+
+        private void FrmCookbook_Shown(object? sender, EventArgs e)
+        {
+            LoadCookbookRecipes();
         }
     }
 }
