@@ -1,4 +1,6 @@
-﻿namespace RecipeWinForms
+﻿using System.Windows.Forms;
+
+namespace RecipeWinForms
 {
     public partial class frmDashboard : Form
     {
@@ -32,6 +34,27 @@
         {
             gData.DataSource = DataMaintenance.DashboardGet();
             WindowsFormsUtility.FormatGridForSearchResult(gData);
+            ResizeDataGridView();
+        }
+
+        private void ResizeDataGridView()
+        {
+            gData.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+            gData.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+            gData.AutoResizeColumns();
+            gData.AutoResizeRows();
+            int totalWidth = gData.RowHeadersVisible ? gData.RowHeadersWidth : 0;
+            foreach (DataGridViewColumn col in gData.Columns)
+            {
+                totalWidth += col.Width;
+            }
+            int totalHeight = gData.ColumnHeadersVisible ? gData.ColumnHeadersHeight : 0;
+            foreach (DataGridViewRow row in gData.Rows)
+            {
+                totalHeight += row.Height;
+            }
+            gData.Width = totalWidth + 2;
+            gData.Height = totalHeight + 2;
         }
 
         private void BtnRecipeList_Click(object? sender, EventArgs e)

@@ -34,7 +34,7 @@ namespace RecipeWinForms
             }
             WindowsFormsUtility.SetControlBinding(txtCookbookName, bindsource);
 
-            DataTable dtusername = SQLUtility.GetList("UserNameGet", true);
+            DataTable dtusername = SQLUtility.GetList("UserNameGet");
             WindowsFormsUtility.SetListBinding(lstUserName, dtusername, dtcookbook, "UserName");
 
             WindowsFormsUtility.SetControlBinding(txtPrice, bindsource);
@@ -64,7 +64,7 @@ namespace RecipeWinForms
             dtcookbookrecipe = Cookbooks.LoadCookbookRecipes(cookbookid);
             gRecipes.DataSource = dtcookbookrecipe;
             WindowsFormsUtility.AddDeleteButtonToGrid(gRecipes, "deletecol");
-            WindowsFormsUtility.AddComboBoxToGrid(gRecipes, SQLUtility.GetList("RecipeGet", true), "Recipe", "RecipeName");
+            WindowsFormsUtility.AddComboBoxToGrid(gRecipes, SQLUtility.GetList("RecipeGet"), "Recipe", "RecipeName");
             WindowsFormsUtility.FormatGridForEdit(gRecipes);
         }
 
@@ -74,7 +74,7 @@ namespace RecipeWinForms
             int pkvalue = SQLUtility.GetValueFromFirstRowAsInt(dtcookbook, "cookbookId");
             if (pkvalue > 0)
             {
-                title = SQLUtility.GetValueFromFirstRowAsString(dtcookbook, "CookbookName");
+                title = "Cookbook - " + SQLUtility.GetValueFromFirstRowAsString(dtcookbook, "CookbookName");
             }
             return title;
         }

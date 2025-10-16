@@ -17,7 +17,7 @@
             DataTable dt = Recipe.SearchRecipe();
             gRecipes.DataSource = dt;
 
-            string[] columnsToHide = { "datedrafted", "datearchived", "datepublished", "cuisine" };
+            string[] columnsToHide = { "datedrafted", "datearchived", "datepublished", "cuisine","IsDeleteAllowed" };
             foreach (string colName in columnsToHide)
             {
                 if (gRecipes.Columns.Contains(colName))
@@ -48,7 +48,10 @@
 
         private void GRecipeResults_CellDoubleClick(object? sender, DataGridViewCellEventArgs e)
         {
-            ShowRecipeForm(e.RowIndex);
+            if (e.RowIndex >= 0)
+            {
+                ShowRecipeForm(e.RowIndex);
+            }
         }
 
         private void BtnNew_Click(object? sender, EventArgs e)

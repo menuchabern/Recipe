@@ -1,4 +1,6 @@
-﻿namespace RecipeWinForms
+﻿using System.Windows.Forms;
+
+namespace RecipeWinForms
 {
     public partial class frmRecipe : Form
     {
@@ -6,6 +8,7 @@
         DataTable dtsteps;
         DataTable dtingredients;
         BindingSource bindsource = new();
+        string deletecolname = "Delete";
         int recipeid = 0;
         public frmRecipe()
         {
@@ -21,6 +24,7 @@
             gSteps.CellContentClick += GSteps_CellContentClick;
             btnChangeStatus.Click += BtnChangeStatus_Click;
             this.Shown += FrmRecipe_Shown;
+            this.Activated += FrmRecipe_Activated;
         }
 
 
@@ -30,7 +34,7 @@
             int pkvalue = SQLUtility.GetValueFromFirstRowAsInt(dtrecipe, "RecipeId");
             if (pkvalue > 0)
             {
-                title = SQLUtility.GetValueFromFirstRowAsString(dtrecipe, "RecipeName");
+                title = "Recipe - " + SQLUtility.GetValueFromFirstRowAsString(dtrecipe, "RecipeName");
             }
             return title;
         }
@@ -46,10 +50,10 @@
                 dtrecipe.Rows.Add();
             }
 
-            DataTable dtusername = SQLUtility.GetList("UserNameGet", true);
+            DataTable dtusername = SQLUtility.GetList("UserNameGet");
             WindowsFormsUtility.SetListBinding(lstUserName, dtusername, dtrecipe, "UserName");
 
-            DataTable dtcuisine = SQLUtility.GetList("CuisineGet", true);
+            DataTable dtcuisine = SQLUtility.GetList("CuisineGet");
             WindowsFormsUtility.SetListBinding(lstCuisine, dtcuisine, dtrecipe, "Cuisine");
 
             WindowsFormsUtility.SetControlBinding(txtRecipeName, bindsource);
@@ -95,7 +99,7 @@
             gSteps.Columns.Clear();
             dtsteps = Recipe.LoadRecipeTabs(recipeid, "RecipeStepsGet");
             gSteps.DataSource = dtsteps;
-            WindowsFormsUtility.AddDeleteButtonToGrid(gSteps, "deleteingredientscol");
+            WindowsFormsUtility.AddDeleteButtonToGrid(gSteps, deletecolname);
             WindowsFormsUtility.FormatGridForEdit(gSteps);
         }
 
@@ -105,9 +109,9 @@
             dtingredients = Recipe.LoadRecipeTabs(recipeid, "RecipeIngredientsGet");
             gIngredients.DataSource = dtingredients;
             WindowsFormsUtility.AddComboBoxToGrid(gIngredients, SQLUtility.GetList("measurementget", true), "measurementtype", "measurementtype");
-            WindowsFormsUtility.AddComboBoxToGrid(gIngredients, SQLUtility.GetList("IngredientGet", true), "Ingredient", "IngredientName");
+            WindowsFormsUtility.AddComboBoxToGrid(gIngredients, SQLUtility.GetList("IngredientGet"), "Ingredient", "IngredientName");
             WindowsFormsUtility.FormatGridForEdit(gIngredients);
-            WindowsFormsUtility.AddDeleteButtonToGrid(gIngredients, "deleteingredientscol");
+            WindowsFormsUtility.AddDeleteButtonToGrid(gIngredients, deletecolname);
         }
 
         private bool Save()
@@ -118,17 +122,13 @@
             {
                 Recipe.Save(dtrecipe);
 
-                DataRowView currentrow = (DataRowView)bindsource.Current;
-                currentrow["RecipeStatus"] = "Drafted";
-                bindsource.ResetCurrentItem();
-                bindsource.ResetBindings(false);
-
                 dtrecipe.AcceptChanges();
                 recipeid = SQLUtility.GetValueFromFirstRowAsInt(dtrecipe, "Recipeid");
                 this.Tag = recipeid;
                 this.Text = GetFormTitle();
                 EnableDisableButtons();
                 b = true;
+                RefreshData();
             }
             catch (Exception ex)
             {
@@ -155,6 +155,12 @@
 
         private void Delete()
         {
+            string alloweddelete = SQLUtility.GetValueFromFirstRowAsString(dtrecipe, "IsDeleteAllowed");
+            if (alloweddelete != "")
+            {
+                MessageBox.Show(alloweddelete, Application.ProductName);
+                return;
+            }
             var response = MessageBox.Show("Are you sure you want to delete this recipe?", "Recipe", MessageBoxButtons.YesNo);
             if (response == DialogResult.No)
             {
@@ -204,6 +210,14 @@
             {
                 grid.Rows.RemoveAt(rowIndex);
             }
+        }
+
+        private void RefreshData()
+        {
+            dtrecipe = Recipe.LoadRecipe(recipeid);
+            bindsource.DataSource = dtrecipe;
+            bindsource.ResetBindings(true);
+            EnableDisableButtons();
         }
 
         private void FrmRecipe_FormClosing(object? sender, FormClosingEventArgs e)
@@ -276,34 +290,40 @@
 
         private void GSteps_CellContentClick(object? sender, DataGridViewCellEventArgs e)
         {
-            try
+            if (gIngredients.Columns[e.ColumnIndex].Name == deletecolname)
             {
-                DeleteTab(e.RowIndex, gSteps, "RecipeStepsID", "RecipeStepsDelete");
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, Application.ProductName);
-            }
-            finally
-            {
-                Application.UseWaitCursor = false;
+                try
+                {
+                    DeleteTab(e.RowIndex, gSteps, "RecipeStepsID", "RecipeStepsDelete");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, Application.ProductName);
+                }
+                finally
+                {
+                    Application.UseWaitCursor = false;
+                }
             }
         }
 
         private void GIngredients_CellContentClick(object? sender, DataGridViewCellEventArgs e)
         {
-            Application.UseWaitCursor = true;
-            try
+            if (gIngredients.Columns[e.ColumnIndex].Name == deletecolname)
             {
-                DeleteTab(e.RowIndex, gIngredients, "RecipeIngredientID", "RecipeIngredientDelete");
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, Application.ProductName);
-            }
-            finally
-            {
-                Application.UseWaitCursor = false;
+                Application.UseWaitCursor = true;
+                try
+                {
+                    DeleteTab(e.RowIndex, gIngredients, "RecipeIngredientID", "RecipeIngredientDelete");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, Application.ProductName);
+                }
+                finally
+                {
+                    Application.UseWaitCursor = false;
+                }
             }
         }
 
@@ -325,6 +345,14 @@
         {
             LoadIngredientsTab();
             LoadStepsTab();
+        }
+
+        private void FrmRecipe_Activated(object? sender, EventArgs e)
+        {
+            if (recipeid >= 0)
+            {
+                RefreshData();
+            }
         }
     }
 }

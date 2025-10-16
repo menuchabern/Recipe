@@ -13,7 +13,7 @@ namespace RecipeWinForms
 
         private void BindData()
         {
-            WindowsFormsUtility.SetListBinding(lstUserName, SQLUtility.GetList("UserNameGet", true), null, "UserName");
+            WindowsFormsUtility.SetListBinding(lstUserName, SQLUtility.GetList("UserNameGet"), null, "UserName");
         }
 
         private void FrmAutoCreateCookbook_Activated(object? sender, EventArgs e)

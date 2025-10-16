@@ -56,20 +56,20 @@
             tblMain.RowCount = 4;
             tblMain.RowStyles.Add(new RowStyle());
             tblMain.RowStyles.Add(new RowStyle());
-            tblMain.RowStyles.Add(new RowStyle());
+            tblMain.RowStyles.Add(new RowStyle(SizeType.Absolute, 350F));
             tblMain.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
             tblMain.Size = new Size(736, 653);
             tblMain.TabIndex = 0;
             // 
             // gData
             // 
+            gData.Anchor = AnchorStyles.None;
             gData.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            gData.Dock = DockStyle.Fill;
-            gData.Location = new Point(4, 201);
+            gData.Location = new Point(10, 201);
             gData.Margin = new Padding(4);
             gData.Name = "gData";
             gData.RowHeadersWidth = 51;
-            gData.Size = new Size(728, 350);
+            gData.Size = new Size(716, 342);
             gData.TabIndex = 2;
             // 
             // lblHeartyHearth
@@ -106,11 +106,11 @@
             tblButtons.Controls.Add(btnMealList, 1, 0);
             tblButtons.Controls.Add(btnCookbookList, 2, 0);
             tblButtons.Dock = DockStyle.Fill;
-            tblButtons.Location = new Point(3, 558);
+            tblButtons.Location = new Point(3, 550);
             tblButtons.Name = "tblButtons";
             tblButtons.RowCount = 1;
             tblButtons.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            tblButtons.Size = new Size(730, 92);
+            tblButtons.Size = new Size(730, 100);
             tblButtons.TabIndex = 5;
             // 
             // btnRecipeList
@@ -118,7 +118,7 @@
             btnRecipeList.Dock = DockStyle.Fill;
             btnRecipeList.Location = new Point(3, 3);
             btnRecipeList.Name = "btnRecipeList";
-            btnRecipeList.Size = new Size(237, 86);
+            btnRecipeList.Size = new Size(237, 94);
             btnRecipeList.TabIndex = 0;
             btnRecipeList.Text = "Recipe List";
             btnRecipeList.UseVisualStyleBackColor = true;
@@ -129,7 +129,7 @@
             btnMealList.Dock = DockStyle.Fill;
             btnMealList.Location = new Point(246, 3);
             btnMealList.Name = "btnMealList";
-            btnMealList.Size = new Size(237, 86);
+            btnMealList.Size = new Size(237, 94);
             btnMealList.TabIndex = 1;
             btnMealList.Text = "MealList";
             btnMealList.UseVisualStyleBackColor = true;
@@ -139,7 +139,7 @@
             btnCookbookList.Dock = DockStyle.Fill;
             btnCookbookList.Location = new Point(489, 3);
             btnCookbookList.Name = "btnCookbookList";
-            btnCookbookList.Size = new Size(238, 86);
+            btnCookbookList.Size = new Size(238, 94);
             btnCookbookList.TabIndex = 2;
             btnCookbookList.Text = "Cookbook List";
             btnCookbookList.UseVisualStyleBackColor = true;

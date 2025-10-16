@@ -1,7 +1,4 @@
-﻿using RecipeSystem;
-using System.Data;
-
-namespace RecipeWinForms
+﻿namespace RecipeWinForms
 {
     public partial class frmChangeStatus : Form
     {

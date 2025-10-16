@@ -7,6 +7,7 @@ create or alter procedure dbo.RecipeUpdate(
 	@DateDrafted date null output,
 	@DatePublished date null output,
 	@DateArchived date null output,
+	@RecipeStatus varchar(25) null output,
 	@Message varchar(500) = '' output
 )
 as 
@@ -40,6 +41,8 @@ begin
 		DatePublished = coalesce(@DatePublished, DatePublished), 
 		DateArchived  = coalesce(@DateArchived, DateArchived)
 		where RecipeId = @recipeid;
+
+		select @RecipeStatus recipestatus from Recipe where RecipeID = @RecipeID
 
 	end
 	return @return
