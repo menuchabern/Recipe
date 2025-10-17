@@ -1,24 +1,38 @@
 create or alter proc dbo.RecipeDatesUpdate(
 	@recipeid int,
-	@DateDrafted date = null output,
-	@DatePublished date = null output,
-	@DateArchived date = null output,
+	@RecipeStatus varchar(25) null,
 	@Message varchar(500) = ''
 )
 as
 begin
 	declare @return int = 0
-
-	declare @CurrentDateDrafted date, @CurrentDatePublished date,  @CurrentDateArchived date
-	select @CurrentDateDrafted = datedrafted, @CurrentDatePublished = datepublished, @CurrentDateArchived = datearchived 
-	from recipe
-	where RecipeID = @recipeid
-
-	select @dateDrafted = isnull(@datedrafted, @currentdatedrafted), @DatePublished = isnull(@datepublished, @currentdatepublished), @DateArchived = isnull(@datearchived, @currentdatearchived)
-
-	update recipe
-	set datedrafted = @DateDrafted, DatePublished = @DatePublished, DateArchived = @DateArchived
-	where recipeid = @recipeid
 	
+            if @RecipeStatus = 'Drafted'
+            begin
+				update recipe 
+                set 
+					DateDrafted = cast(getdate() as date),
+					DatePublished = null,
+					DateArchived = null
+					where recipeid = @recipeid
+            end
+
+            else if @RecipeStatus = 'Published'
+            begin
+				update recipe 
+                set 
+					DatePublished = cast(getdate() as date),
+					DateArchived = null
+					where recipeid = @recipeid
+				end
+
+            else if @RecipeStatus = 'Archived'
+            begin
+				update recipe 
+                set DateArchived = cast(getdate() as date)
+				where Recipeid = @recipeid
+            end
+
 	return @return
 end
+go

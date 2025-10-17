@@ -85,13 +85,6 @@ namespace RecipeWinForms
                     btn.Enabled = true;
                 }
             }
-            if (dtrecipe.Columns.Contains("RecipeStatus"))
-            {
-                if (dtrecipe.Rows.Count > 0 && dtrecipe.Rows[0]["RecipeStatus"].ToString() == "Archived")
-                {
-                    btnChangeStatus.Text = "Status Dates";
-                }
-            }
         }
 
         private void LoadStepsTab()

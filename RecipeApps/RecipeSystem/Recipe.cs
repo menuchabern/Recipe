@@ -66,7 +66,7 @@
         public static void UpdateRecipeStatus(DataTable dtrecipe, string datetype, int recipeid)
         {
             SqlCommand cmd = SQLUtility.GetSQLCommand("RecipeDatesUpdate");
-            SQLUtility.SetParamValue(cmd, "@" + datetype, DateTime.Today);
+            SQLUtility.SetParamValue(cmd, "@RecipeStatus", datetype);
             SQLUtility.SetParamValue(cmd, "@recipeid", recipeid);
             SQLUtility.ExecuteSQL(cmd);
         }
