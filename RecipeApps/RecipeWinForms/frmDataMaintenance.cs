@@ -1,5 +1,4 @@
 ﻿using RecipeSystem;
-using System.Drawing.Design;
 
 namespace RecipeWinForms
 {
@@ -17,8 +16,13 @@ namespace RecipeWinForms
             SetUpRadioButtons();
             this.FormClosing += FrmDataMaintenance_FormClosing;
             gMain.CellContentClick += GMain_CellContentClick;
+            gMain.DataError += GMain_DataError;
         }
 
+        private void GMain_DataError(object? sender, DataGridViewDataErrorEventArgs e)
+        {
+            MessageBox.Show($"Please put a proper value into {gMain.Columns[e.ColumnIndex].HeaderText}", Application.ProductName);
+        }
 
         private void BindData(TableTypeEnum tabletype)
         {

@@ -28,8 +28,6 @@ begin
 			insert cookbookrecipe(CookbookId, RecipeId, RecipeSequence)
 			select @NewCookbookId, r.recipeid, ROW_NUMBER() OVER (ORDER BY r.recipename)
 			from recipe r
-			join username un
-			on un.UserNameID = r.UserNameID
 			where r.UserNameID = @UserNameId
 		commit
 	end try 

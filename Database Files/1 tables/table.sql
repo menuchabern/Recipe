@@ -76,10 +76,9 @@ create table dbo.Recipe(
     RecipeStatus as case when DatePublished is null and DateArchived is null then 'Draft'
         when DatePublished is not null and DateArchived is null then 'Published'
         else 'Archived' end,
-    constraint ck_DateDrafted_must_be_before_DatePublished check (DateDrafted < DatePublished),
+    constraint ck_DateDrafted_must_be_before_DatePublished check (DateDrafted <= DatePublished),
     constraint ck_DatePublished_must_be_before_DateArchived check(DatePublished <= DateArchived),
---AS Change to less than or equal
-    constraint ck_DateDrafted_must_be_before_DateArchived check(DateDrafted < DateArchived)
+    constraint ck_DateDrafted_must_be_before_DateArchived check(DateDrafted <= DateArchived)
 )
 go
 

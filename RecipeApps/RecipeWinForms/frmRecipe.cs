@@ -342,7 +342,7 @@ namespace RecipeWinForms
 
         private void FrmRecipe_Activated(object? sender, EventArgs e)
         {
-            if (recipeid >= 0)
+            if (recipeid > 0)
             {
                 RefreshData();
             }

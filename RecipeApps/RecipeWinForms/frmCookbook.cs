@@ -46,7 +46,7 @@ namespace RecipeWinForms
 
         private void EnableDisableButtons()
         {
-            if(this.Text == "New Cookbook")
+            if (this.Text == "New Cookbook")
             {
                 btnDelete.Enabled = false;
                 btnSaveRecipes.Enabled = false;
@@ -225,5 +225,6 @@ namespace RecipeWinForms
         {
             LoadCookbookRecipes();
         }
+
     }
 }
