@@ -15,6 +15,8 @@ begin
 
 	begin try
 		begin tran
+			delete CookbookRecipe where RecipeID = @RecipeID
+			delete RecipeMealCourse where RecipeID = @RecipeID
 			delete RecipeSteps where Recipeid = @RecipeID
 			delete RecipeIngredient where recipeid = @RecipeID
 			delete recipe where recipeid = @RecipeID
