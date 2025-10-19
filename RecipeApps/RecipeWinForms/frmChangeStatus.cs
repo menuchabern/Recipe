@@ -11,6 +11,7 @@
             btnArchive.Click += BtnArchive_Click;
             btnDraft.Click += BtnDraft_Click;
             btnPublish.Click += BtnPublish_Click;
+            this.Shown += FrmChangeStatus_Shown;
         }
 
 
@@ -49,6 +50,7 @@
 
                 dtrecipe = Recipe.LoadRecipe(recipeid);
                 bindsource.DataSource = dtrecipe;
+                EnableDisableDateButtons();
             }
             catch (Exception ex)
             {
@@ -60,6 +62,31 @@
             }
         }
 
+        public void EnableDisableDateButtons()
+        {
+            btnArchive.Enabled = true;
+            btnDraft.Enabled = true;
+            btnPublish.Enabled = true;
+
+            switch (lblRecipeStatus.Text)
+            {
+                case "Draft":
+                    btnDraft.Enabled = false;
+                    break;
+                case "Published":
+                    btnPublish.Enabled = false;
+                    break;
+                case "Archived":
+                    btnArchive.Enabled = false;
+                    break;
+            }
+        }
+
+        private void FrmChangeStatus_Shown(object? sender, EventArgs e)
+        {
+            EnableDisableDateButtons();
+        }
+        
         private void BtnPublish_Click(object? sender, EventArgs e)
         {
             UpdateDates("Published");
