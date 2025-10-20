@@ -187,10 +187,11 @@ namespace RecipeTest
             switch (listof)
             {
                 case "username":
-                    dtlist = Recipe.GetUserNameList();
+                    dtlist = SQLUtility.GetList("UserNameGet");
+
                     break;
                 case "cuisine":
-                    dtlist = Recipe.GetCuisineList();
+                    dtlist = SQLUtility.GetList("CuisineGet");
                     break;
             }
 
@@ -201,13 +202,12 @@ namespace RecipeTest
         [Test]
         public void SearchRecipe()
         {
-            string criteria = "t";
-            int numrecipes = SQLUtility.GetFirstColumnFirstRowValue("select total = count(*) from recipe where recipename like '%" + criteria + "%'");
-            Assume.That(numrecipes > 0, "there are no recipes that match the search for " + criteria);
-            TestContext.WriteLine(numrecipes + " recipes that match " + criteria);
+            int numrecipes = SQLUtility.GetFirstColumnFirstRowValue("select total = count(*) from recipe");
+            Assume.That(numrecipes > 0, "there are no recipes in DB");
+            TestContext.WriteLine(numrecipes + " recipes");
             TestContext.WriteLine("ensure that recipe search returns " + numrecipes + "rows");
 
-            DataTable dt = Recipe.SearchRecipe(criteria);
+            DataTable dt = Recipe.SearchRecipe();
             int results = dt.Rows.Count;
             Assert.IsTrue(results == numrecipes, "results of recipes search does not match number of recipe " + results + " <> " + numrecipes);
             TestContext.WriteLine("number of rows returned by recipes search is " + results);
