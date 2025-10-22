@@ -1,5 +1,5 @@
 create or alter procedure dbo.RecipeStepsUpdate(
-	--@RecipeID int = 0,
+	@RecipeID int = 0,
 	@RecipeStepsID int = 0 output,
 	@StepSequence int = 0,
 	@StepDirection varchar(250) = '',
