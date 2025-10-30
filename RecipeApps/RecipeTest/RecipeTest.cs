@@ -6,42 +6,42 @@ namespace RecipeTest
     public class RecipeTest
     {
         string connstring = ConfigurationManager.ConnectionStrings["devconn"].ConnectionString;
-        string testconnstring = ConfigurationManager.ConnectionStrings["unittestconn"].ConnectionString;
+        string testconnstring = ConfigurationManager.ConnectionStrings["liveconn"].ConnectionString;
         [SetUp]
         public void Setup()
         {
-            DBManager.SetConnectionString(connstring, true);
+            DBManager.SetConnectionString(testconnstring, true);
         }
 
         private DataTable GetDataTable(string sql)
         {
             DataTable dt = new();
-            DBManager.SetConnectionString(testconnstring, false);
+            //DBManager.SetConnectionString(testconnstring, false);
             dt = SQLUtility.GetDataTable(sql);
-            DBManager.SetConnectionString(connstring, false);
+           // DBManager.SetConnectionString(connstring, false);
             return dt;
         }
 
         private int GetFirstColumnFirstRowValue(string sql)
         {
             int n = 0;
-            DBManager.SetConnectionString(testconnstring, false);
+            //DBManager.SetConnectionString(testconnstring, false);
             n = SQLUtility.GetFirstColumnFirstRowValue(sql);
-            DBManager.SetConnectionString(connstring, false);
+            //DBManager.SetConnectionString(connstring, false);
             return n;
         }
 
         private DataTable GetList(string sprocname)
         {
-            DBManager.SetConnectionString(testconnstring, false);
+            //DBManager.SetConnectionString(testconnstring, false);
             DataTable dt = SQLUtility.GetList(sprocname);
-            DBManager.SetConnectionString(connstring, false);
+            //DBManager.SetConnectionString(connstring, false);
             return dt;
         }
 
         private void ExecuteSQL(string sql)
         {
-            DBManager.SetConnectionString(testconnstring, false);
+            //DBManager.SetConnectionString(testconnstring, false);
             SQLUtility.ExecuteSQL(sql);
             DBManager.SetConnectionString(connstring, false);
         }
