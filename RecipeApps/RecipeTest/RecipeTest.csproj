@@ -21,6 +21,7 @@
     <ProjectReference Include="..\..\..\CPUFramework\CPUFramework.csproj" />
     <ProjectReference Include="..\..\..\CPUWindowsFormsFramework\CPUWindowsFormsFramework.csproj" />
     <ProjectReference Include="..\RecipeSystem\RecipeSystem.csproj" />
+    <ProjectReference Include="..\RecipeWinForms\RecipeWinForms.csproj" />
   </ItemGroup>
 
   <ItemGroup>

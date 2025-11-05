@@ -5,7 +5,7 @@ namespace RecipeTest
 {
     public class RecipeTest
     {
-        string connstring = ConfigurationManager.ConnectionStrings["devconn"].ConnectionString;
+        //string connstring = ConfigurationManager.ConnectionStrings["devconn"].ConnectionString;
         string testconnstring = ConfigurationManager.ConnectionStrings["liveconn"].ConnectionString;
         [SetUp]
         public void Setup()
