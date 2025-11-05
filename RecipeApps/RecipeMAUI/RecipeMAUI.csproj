@@ -47,7 +47,6 @@
 
 		<!-- Images -->
 		<MauiImage Include="Resources\Images\*" />
-		<MauiImage Update="Resources\Images\dotnet_bot.png" Resize="True" BaseSize="300,185" />
 		<MauiImage Update="Resources\Images\recipe_sweet_rotato_parsley_salad.jpg">
 		  <CopyToOutputDirectory>Never</CopyToOutputDirectory>
 		</MauiImage>
@@ -60,6 +59,22 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiImage Remove="Resources\Images\dotnet_bot.png" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Remove="secret-appsettings.json" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <EmbeddedResource Include="secret-appsettings.json">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </EmbeddedResource>
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="9.0.10" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="9.0.10" />
 		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
 		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="$(MauiVersion)" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.1" />
@@ -67,6 +82,10 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\RecipeSystem\RecipeSystem.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Resource Include="Resources\Images\dotnet_bot.png" Resize="True" BaseSize="300,185" />
 	</ItemGroup>
 
 </Project>
