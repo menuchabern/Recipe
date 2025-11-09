@@ -38,7 +38,7 @@ create table dbo.Ingredient(
     IngredientName varchar(30) not null 
         constraint ck_IngredientName_cannot_be_blank check(IngredientName <> '') 
         constraint u_IngredientName unique, 
-    PictureName as concat('Ingredient_', replace(IngredientName, ' ', '_'), '.jpg' )
+    PictureName as concat('ingredient_', replace(lower(IngredientName), ' ', '_'), '.jpg' )
 )
 GO
 
@@ -69,7 +69,7 @@ create table dbo.Recipe(
         constraint ck_RecipeName_cannot_be_blank check (RecipeName <> '') 
         constraint u_RecipeName unique,
     Calories int not null constraint ck_Calories_must_be_greater_than_or_equal_to_0 check(Calories >= 0),
-    PictureName as concat('Recipe_', replace(RecipeName, ' ', '_'), '.jpg' ),
+    PictureName as concat('recipe_', replace(lower(RecipeName), ' ', '_'), '.jpg' ),
     DateDrafted datetime not null constraint ck_DateDrafted_cannot_be_in_the_future check (DateDrafted between '1/1/2000' and getdate()),
     DatePublished  datetime null constraint ck_DatePublished_cannot_be_in_the_future check (DatePublished < getdate()),
     DateArchived datetime null constraint ck_Archived_cannot_be_in_the_future check (DateArchived < getdate()),
@@ -111,7 +111,7 @@ create table dbo.Meal(
         constraint u_MealName unique,
     DateCreated date not null constraint ck_Meal_DateCreated_cannot_be_in_the_future check(DateCreated between '1/1/2000' and getdate()),
     ActiveStatus bit not null,
-    PictureName as concat('Meal_', replace(MealName, ' ', '_'), '.jpg' )
+    PictureName as concat('meal_', replace(lower(MealName), ' ', '_'), '.jpg' )
 )
 go
 
@@ -141,7 +141,7 @@ create table dbo.Cookbook(
     Price decimal (5,2) not null constraint ck_Price_must_be_greater_than_0 check(price > 0),
     ActiveStatus bit not null,
     DateCreated date not null constraint ck_Cookbook_DateCreated_cannot_be_in_the_future check(DateCreated between '1/1/2000' and getdate()),
-    PictureName as concat('Cookbook_', replace(cookbookname, ' ', '_'), '.jpg' ) 
+    PictureName as concat('cookbook_', replace(lower(cookbookname), ' ', '_'), '.jpg' ) 
 )
 go
 
