@@ -31,7 +31,7 @@ namespace RecipeWinForms
 #if DEBUG
                 connstringkey = "localconn";
 #else
-                connstringkey = "azureconn";
+                connstringkey = "liveconn";
 #endif
                 string connstring = ConfigurationManager.ConnectionStrings[connstringkey].ConnectionString;
                 DBManager.SetConnectionString(connstring, true, txtUserId.Text, txtPassword.Text);
