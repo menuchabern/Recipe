@@ -72,7 +72,9 @@ namespace RecipeTest
             r["datedrafted"] = datedrafted;
             r["cuisineid"] = cuisineid;
             r["usernameid"] = usernameid;
-            Recipe.Save(dt);
+
+            bizRecipe recipe = new();
+            recipe.Save(dt);
 
             int newid = GetFirstColumnFirstRowValue("select * from recipe where recipename = '" + recipename + "'");
 
@@ -138,7 +140,8 @@ namespace RecipeTest
             TestContext.WriteLine(recipedesc + " is an existing recipe with id of " + recipeid);
             TestContext.WriteLine("ensure that app will delete this recipe");
 
-            Recipe.Delete(dt);
+            bizRecipe recipe = new();
+            recipe.Delete(dt);
             DataTable dtafterdelete = GetDataTable("select * from recipe where recipeid = " + recipeid);
 
             Assert.IsTrue(dtafterdelete.Rows.Count == 0, "record with recipeid " + recipeid + " still exists in DB");
@@ -185,7 +188,8 @@ namespace RecipeTest
             string recipedesc = dt.Rows[0]["recipename"].ToString();
             TestContext.WriteLine("ensure that app cannot delete " + recipedesc);
 
-            Exception ex = Assert.Throws<Exception>(() => Recipe.Delete(dt));
+            bizRecipe recipe = new();
+            Exception ex = Assert.Throws<Exception>(() => recipe.Delete(dt));
             TestContext.WriteLine(ex.Message);
         }
 
@@ -197,7 +201,8 @@ namespace RecipeTest
             TestContext.WriteLine("existing recipe with id of " + recipeid);
             TestContext.WriteLine("ensure that app loads recipe with id of " + recipeid);
 
-            DataTable dt = Recipe.LoadRecipe(recipeid);
+            bizRecipe recipe = new();
+            DataTable dt = recipe.Load(recipeid);
             int loadedid = (int)dt.Rows[0]["RecipeID"];
 
             Assert.That(loadedid == recipeid, "the recipe that loaded did not match the recipeid, " + loadedid + " <> " + recipeid);
