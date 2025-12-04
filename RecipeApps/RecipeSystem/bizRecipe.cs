@@ -6,8 +6,120 @@ using System.Threading.Tasks;
 
 namespace RecipeSystem
 {
-    public class bizRecipe :bizObject
+    public class bizRecipe : bizObject
     {
-        public bizRecipe() : base("Recipe") { }
+        public bizRecipe() { }
+
+        private int _recipeId;
+        private int _cuisineId;
+        private int _usernameId;
+        private string _recipename = "";
+        private int _calories;
+        private DateOnly _datedrafted;
+        private DateOnly? _datepublished;
+        private DateOnly? _datearchived;
+
+        public int RecipeId
+        {
+            get { return _recipeId; }
+            set
+            {
+                if (_recipeId != value)
+                {
+                    _recipeId = value;
+                    InvokePropertyChanged();
+                }
+            }
+        }
+        public int CuisineId
+        {
+            get { return _cuisineId; }
+            set
+            {
+                if (_cuisineId != value)
+                {
+                    _cuisineId = value;
+                    InvokePropertyChanged();
+                }
+            }
+        }
+
+        public int UserNameId
+        {
+            get { return _usernameId; }
+            set
+            {
+                if (_usernameId != value)
+                {
+                    _usernameId = value;
+                    InvokePropertyChanged();
+                }
+            }
+        }
+
+        public string RecipeName
+        {
+            get { return _recipename; }
+            set
+            {
+                if (_recipename != value)
+                {
+                    _recipename = value;
+                    InvokePropertyChanged();
+                }
+            }
+        }
+
+        public int Calories
+        {
+            get { return _calories; }
+            set
+            {
+                if (_calories != value)
+                {
+                    _calories = value;
+                    InvokePropertyChanged();
+                }
+            }
+        }
+
+        public DateOnly DateDrafted
+        {
+            get { return _datedrafted; }
+            set
+            {
+                if (_datedrafted != value)
+                {
+                    _datedrafted = value;
+                    InvokePropertyChanged();
+                }
+            }
+        }
+
+        public DateOnly? DatePublished
+        {
+            get { return _datepublished; }
+            set
+            {
+                if (_datepublished != value)
+                {
+                    _datepublished = value;
+                    InvokePropertyChanged();
+                }
+            }
+        }
+
+        public DateOnly? DateArchived
+        {
+            get { return _datearchived; }
+            set
+            {
+                if (_datearchived != value)
+                {
+                    _datearchived = value;
+                    InvokePropertyChanged();
+                }
+            }
+        }
     }
 }
