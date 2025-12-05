@@ -49,9 +49,9 @@ namespace RecipeTest
         [Test]
         [TestCase("test1", 800, "2020-01-01")]
         [TestCase("test2", 200, "2012-01-01")]
-        public void InsertNewRecipe(string recipename, int calories, string _datedrafted)
+        public void InsertNewRecipe(string recipename, int calories, DateTime datedrafted)
         {
-            DateOnly datedrafted = DateOnly.Parse(_datedrafted);
+            //DateOnly datedrafted = DateOnly.Parse(_datedrafted);
             DataTable dtfordelete = GetDataTable("select * from recipe where recipename like 'test%'");
             if (dtfordelete.Rows.Count > 0)
             {
@@ -103,10 +103,11 @@ namespace RecipeTest
         {
             int recipeid = GetRandomExistingRecipeID();
             bizRecipe recipe = new();
+            recipe.Load(recipeid);
             Assume.That(recipeid > 0, "no recipes in DB, cannot run tests");
-            TestContext.WriteLine($"updating the recipename from recipe {recipe.RecipeName} to blank");
+            TestContext.WriteLine($"updating the recipename from recipe with and id of {recipe.RecipeId} from {recipe.RecipeName} to blank");
             recipe.RecipeName = "";
-            Exception ex = Assert.Throws<Exception>(() => recipe.Save());
+            Exception ex = Assert.Throws<Exception>(recipe.Save);
             TestContext.WriteLine(ex.Message);
         }
 

@@ -4,10 +4,10 @@ create or alter procedure dbo.RecipeUpdate(
 	@UserNameID int,
 	@RecipeName varchar (40),
 	@Calories int,
-	@DateDrafted date null output,
-	@DatePublished date null output,
-	@DateArchived date null output,
-	@RecipeStatus varchar(25) null output,
+	@DateDrafted datetime null output,
+	@DatePublished datetime null output,
+	@DateArchived datetime null output,
+	@RecipeStatus varchar(25) null = '' output,
 	@Message varchar(500) = '' output
 )
 as 
