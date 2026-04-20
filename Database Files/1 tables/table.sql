@@ -81,6 +81,15 @@ create table dbo.Recipe(
     constraint ck_DateDrafted_must_be_before_DateArchived check(DateDrafted <= DateArchived)
 )
 go
+alter table recipe add Skill int not null default 1 constraint ck_must_be_1_2_or_3 check(Skill between 1 and 3)
+go
+alter table recipe add SkillDesc as case when skill = 1 then 'beginner'
+	when skill = 2 then 'intermediate'
+	else 'advanced' end
+go
+
+alter table recipe add Vegan bit default 0 not null
+go
 
 create table dbo.RecipeIngredient(
     RecipeIngredientId int not null identity primary key,

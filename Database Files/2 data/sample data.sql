@@ -101,7 +101,21 @@ join Cuisine c
 on x.Cuisine = c.Cuisine
 join UserName un 
 on un.UserName = x.UserName
-
+;
+with x as (
+	select 'Chocolate Chip Cookies' as RecipeName, 2 as Skill, 1 as vegan
+	union select 'Butter Muffins', 2 , 0
+	union select 'Apple Yogurt Smoothie', 3, 1
+	union select 'Breaded Chicken Breasts', 3, 0
+	union select 'Sweet Potato Parsley Salad', 1, 0
+	union select 'Fudgy Brownies', 1, 0
+	union select 'Cheese Bread', 1, 1
+)
+update r
+set r.Skill = x.skill, r.vegan = x.vegan
+from recipe r
+join x 
+on x.RecipeName = r.RecipeName
 ;with x as (
    select Recipe = 'Chocolate Chip Cookies', MeasurementNumber = 1, MeasurementType = 'cup', Ingredient = 'sugar', IngredientSequence = 1
    union select 'Chocolate Chip Cookies', 1/2, 'cup', 'oil', 2
