@@ -238,6 +238,22 @@ select un.UserNameID, x.Meal, x.DateCreated, x.Active
 from x 
 join UserName un
 on un.UserName = x.UserName
+; 
+with x as (
+	select 'Midday Snack' as MealName, 
+	'This meal arrangemnt is the perfect idea for the midday snack.' as mealdesc
+	union select 'savory supper',
+	'This Supper is the most savory option we have to offer!'
+	union select 'light lunch',
+	'this is the perfect option when you are craving the light, tasy lunch.'
+	union select 'breakfast bash',
+	'have you ever wanted to make a bash early in the morning? this is the perfect option'
+)
+update m
+set m.MealName = x.MealName
+from meal m
+join x
+on x.MealName = m.mealname
 
 ;with x as(
    select Meal = 'Breakfast Bash', CourseType = 'Appetizer'
