@@ -8,7 +8,7 @@ as
 begin
 	select r.recipeid, r.RecipeName, r.RecipeStatus, u.UserName, r.Calories, 
 		count(ri.RecipeIngredientId) as NumIngredients , r.datedrafted, r.datearchived, 
-		r.datepublished, c.cuisine, r.usernameid, r.cuisineid, IsDeleteAllowed = dbo.IsRecipeDeleteAllowed(r.recipeid), r.Skill, r.SkillDesc, r.vegan
+		r.datepublished, c.cuisine, r.usernameid, r.cuisineid, IsDeleteAllowed = dbo.IsRecipeDeleteAllowed(r.recipeid), r.vegan
 	from recipe r 
 	join username u 
 	on r.usernameid = u.usernameid 
@@ -19,8 +19,8 @@ begin
 	where @All = 1
 	or (@recipeName <> '' and r.recipeName like '%' + @recipeName + '%')
 	or r.RecipeID = @RecipeID
-	group by r.recipeid, r.recipename, r.recipestatus, u.username, r.calories,  r.datedrafted, r.datearchived, r.datepublished, c.cuisine, r.usernameid, r.cuisineid, r.Skill, r.SkillDesc, r.vegan
-	union select 0, '', '', '', 0, 0, 0, 0, 0, '', 0, 0, '', 0 , '', 0
+	group by r.recipeid, r.recipename, r.recipestatus, u.username, r.calories,  r.datedrafted, r.datearchived, r.datepublished, c.cuisine, r.usernameid, r.cuisineid, r.vegan
+	union select 0, '', '', '', 0, 0, 0, 0, 0, '', 0, 0, '', 0 
 	where @includeblank = 1
 	order by r.RecipeStatus desc
 

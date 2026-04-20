@@ -19,7 +19,7 @@ begin
 		from UserName
 	end
 
-	select c.CookbookName, Author = us.UserName, NumRecipes = count(r.recipeid), c.Price, c.cookbookid, c.usernameid, c.datecreated, c.activestatus
+	select c.CookbookName, Author = us.UserName, NumRecipes = count(r.recipeid), c.Price, c.cookbookid, c.usernameid, c.datecreated, c.activestatus, c.skill, c.skilldesc
 	from cookbook c
 	join username us
 	on us.usernameid = c.usernameid
@@ -31,10 +31,11 @@ begin
 	or c.cookbookid = @cookbookid
 	or c.CookbookName = @CookbookName
 	or c.CookbookName like '%' + @FullUserName
-	group by c.cookbookname, us.username, c.price, c.cookbookid, c.usernameid, c.datecreated, c.activestatus
+	group by c.cookbookname, us.username, c.price, c.cookbookid, c.usernameid, c.datecreated, c.activestatus, c.skill, c.skilldesc
 	order by c.cookbookname
 
 	
 	return @return
 end
 
+--exec CookbookGet @all = 1

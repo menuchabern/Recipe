@@ -81,13 +81,6 @@ create table dbo.Recipe(
     constraint ck_DateDrafted_must_be_before_DateArchived check(DateDrafted <= DateArchived)
 )
 go
-alter table recipe add Skill int not null default 1 constraint ck_must_be_1_2_or_3 check(Skill between 1 and 3)
-go
-alter table recipe add SkillDesc as case when skill = 1 then 'beginner'
-	when skill = 2 then 'intermediate'
-	else 'advanced' end
-go
-
 alter table recipe add Vegan bit default 0 not null
 go
 
@@ -152,6 +145,12 @@ create table dbo.Cookbook(
     DateCreated date not null constraint ck_Cookbook_DateCreated_cannot_be_in_the_future check(DateCreated between '1/1/2000' and getdate()),
     PictureName as concat('cookbook_', replace(lower(cookbookname), ' ', '_'), '.jpg' ) 
 )
+go
+alter table cookbook add Skill int not null default 1 constraint ck_must_be_1_2_or_3 check(Skill between 1 and 3)
+go
+alter table cookbook add SkillDesc as case when skill = 1 then 'beginner'
+	when skill = 2 then 'intermediate'
+	else 'advanced' end
 go
 
 create table dbo.CookbookRecipe(
