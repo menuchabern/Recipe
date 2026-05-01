@@ -14,11 +14,13 @@ namespace RecipeSystem
         private int _userNameId;
         private string _cookbookName;
         private decimal _price;
-        private int _activeStatus;
+        private bool _activeStatus;
         private DateTime _dateCreated;
         private string _pictureName;
         private int _skill;
         private string _skillDesc;
+        private string _author;
+        private int _numRecipes;
 
         public List<bizCookbook> Search(string cookbookval)
         {
@@ -80,7 +82,7 @@ namespace RecipeSystem
             }
         }
 
-        public int ActiveStatus
+        public bool ActiveStatus
         {
             get { return _activeStatus; }
             set
@@ -140,6 +142,32 @@ namespace RecipeSystem
                 if (_skillDesc != value)
                 {
                     _skillDesc = value;
+                    InvokePropertyChanged();
+                }
+            }
+        }
+
+        public string Author
+        {
+            get { return _author; }
+            set
+            {
+                if (_author != value)
+                {
+                    _author = value;
+                    InvokePropertyChanged();
+                }
+            }
+        }
+
+        public int NumRecipes
+        {
+            get { return _numRecipes; }
+            set
+            {
+                if (_numRecipes != value)
+                {
+                    _numRecipes = value;
                     InvokePropertyChanged();
                 }
             }

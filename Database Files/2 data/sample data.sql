@@ -250,7 +250,7 @@ with x as (
 	'have you ever wanted to make a bash early in the morning? this is the perfect option'
 )
 update m
-set m.MealName = x.MealName
+set m.MealDesc = x.mealdesc
 from meal m
 join x
 on x.MealName = m.mealname

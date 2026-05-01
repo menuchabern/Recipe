@@ -14,9 +14,12 @@ namespace RecipeSystem
         private int _userNameId;
         private string _mealName;
         private DateTime _dateCreated;
-        private int _activestatus;
         private string _pictureName;
         private string _mealDesc;
+        private string _userName;
+        private int _numCalories;
+        private int _numCourses;
+        private int _numrecipes;
 
         public List<bizMeal> Search(string mealval) {
             SqlCommand cmd = SQLUtility.GetSQLCommand(this.GetSprocName);
@@ -77,19 +80,6 @@ namespace RecipeSystem
             }
         }
 
-        public int ActiveStatus
-        {
-            get { return _activestatus; }
-            set
-            {
-                if (_activestatus != value)
-                {
-                    _activestatus = value;
-                    InvokePropertyChanged();
-                }
-            }
-        }
-
         public string PictureName
         {
             get { return _pictureName; }
@@ -105,7 +95,7 @@ namespace RecipeSystem
 
         public string MealDesc
         {
-            get { return _mealName; }
+            get { return _mealDesc; }
             set
             {
                 if (_mealDesc != value)
@@ -115,5 +105,58 @@ namespace RecipeSystem
                 }
             }
         }
+
+        public string UserName
+        {
+            get { return _userName; }
+            set
+            {
+                if (_userName != value)
+                {
+                    _userName = value;
+                    InvokePropertyChanged();
+                }
+            }
+        }
+
+        public int NumCalories
+        {
+            get { return _numCalories; }
+            set
+            {
+                if (_numCalories != value)
+                {
+                    _numCalories = value;
+                    InvokePropertyChanged();
+                }
+            }
+        }
+
+        public int NumCourses
+        {
+            get { return _numCourses; }
+            set
+            {
+                if (_numCourses != value)
+                {
+                    _numCourses = value;
+                    InvokePropertyChanged();
+                }
+            }
+        }
+
+        public int NumRecipes
+        {
+            get { return _numrecipes; }
+            set
+            {
+                if (_numrecipes != value)
+                {
+                    _numrecipes = value;
+                    InvokePropertyChanged();
+                }
+            }
+        }
+
     }
 }

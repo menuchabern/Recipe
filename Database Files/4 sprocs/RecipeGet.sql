@@ -7,7 +7,7 @@ create or alter procedure dbo.RecipeGet(
 as 
 begin
 	select r.recipeid, r.RecipeName, r.RecipeStatus, u.UserName, r.Calories, 
-		count(ri.RecipeIngredientId) as NumIngredients , r.datedrafted, r.datearchived, 
+		(ri.RecipeIngredientId) as NumIngredients , r.datedrafted, r.datearchived, 
 		r.datepublished, c.cuisine, r.usernameid, r.cuisineid, IsDeleteAllowed = dbo.IsRecipeDeleteAllowed(r.recipeid), r.vegan
 	from recipe r 
 	join username u 
@@ -19,7 +19,7 @@ begin
 	where @All = 1
 	or (@recipeName <> '' and r.recipeName like '%' + @recipeName + '%')
 	or r.RecipeID = @RecipeID
-	group by r.recipeid, r.recipename, r.recipestatus, u.username, r.calories,  r.datedrafted, r.datearchived, r.datepublished, c.cuisine, r.usernameid, r.cuisineid, r.vegan
+	group by r.recipeid, r.recipename, r.recipestatus, u.username, r.calories,  r.datedrafted, r.datearchived, r.datepublished, c.cuisine, r.usernameid, r.cuisineid, r.vegan, ri.RecipeIngredientId
 	union select 0, '', '', '', 0, 0, 0, 0, 0, '', 0, 0, '', 0 
 	where @includeblank = 1
 	order by r.RecipeStatus desc

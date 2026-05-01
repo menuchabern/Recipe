@@ -19,11 +19,14 @@ namespace RecipeSystem
         private DateTime? _datepublished;
         private DateTime? _datearchived;
         private int _vegan;
+        private string _recipestatus = "";
+        private string _username;
+        private int? _numingredients;
 
         public List<bizRecipe> Search(string recipeval)
         {
             SqlCommand cmd = SQLUtility.GetSQLCommand(this.GetSprocName);
-            SQLUtility.SetParamValue(cmd, "RecipeName", recipeval);
+            SQLUtility.SetParamValue(cmd, "@RecipeName", recipeval);
             DataTable dt = SQLUtility.GetDataTable(cmd);
             return this.GetListFromDataTable(dt);
         }
@@ -139,6 +142,45 @@ namespace RecipeSystem
                 if (_vegan != value)
                 {
                     _vegan = value;
+                    InvokePropertyChanged();
+                }
+            }
+        }
+  
+        public string RecipeStatus
+        {
+            get { return _recipestatus; }
+            set
+            {
+                if (_recipestatus != value)
+                {
+                    _recipestatus = value;
+                    InvokePropertyChanged();
+                }
+            }
+        }
+
+        public string UserName
+        {
+            get { return _username; }
+            set
+            {
+                if (_username != value)
+                {
+                    _username = value;
+                    InvokePropertyChanged();
+                }
+            }
+        }
+
+        public int? NumIngredients
+        {
+            get { return _numingredients; }
+            set
+            {
+                if (_numingredients != value)
+                {
+                    _numingredients = value;
                     InvokePropertyChanged();
                 }
             }
