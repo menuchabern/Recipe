@@ -7,7 +7,7 @@ create or alter procedure dbo.RecipeGet(
 as 
 begin
 	select r.recipeid, r.RecipeName, r.RecipeStatus, u.UserName, r.Calories, 
-		(ri.RecipeIngredientId) as NumIngredients , r.datedrafted, r.datearchived, 
+		count(ri.RecipeIngredientId) as NumIngredients , r.datedrafted, r.datearchived, 
 		r.datepublished, c.cuisine, r.usernameid, r.cuisineid, IsDeleteAllowed = dbo.IsRecipeDeleteAllowed(r.recipeid), r.vegan
 	from recipe r 
 	join username u 
