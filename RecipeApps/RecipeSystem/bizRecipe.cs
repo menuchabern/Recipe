@@ -22,11 +22,20 @@ namespace RecipeSystem
         private string _recipestatus = "";
         private string _username;
         private int? _numingredients;
+        private int _cookbookId;
 
         public List<bizRecipe> Search(string recipeval)
         {
             SqlCommand cmd = SQLUtility.GetSQLCommand(this.GetSprocName);
             SQLUtility.SetParamValue(cmd, "@RecipeName", recipeval);
+            DataTable dt = SQLUtility.GetDataTable(cmd);
+            return this.GetListFromDataTable(dt);
+        }
+
+        public List<bizRecipe> SearchByCookbook(int cookbookid)
+        {
+            SqlCommand cmd = SQLUtility.GetSQLCommand("CookbookRecipesGet");
+            SQLUtility.SetParamValue(cmd, "@CookbookId", cookbookid);
             DataTable dt = SQLUtility.GetDataTable(cmd);
             return this.GetListFromDataTable(dt);
         }
@@ -181,6 +190,19 @@ namespace RecipeSystem
                 if (_numingredients != value)
                 {
                     _numingredients = value;
+                    InvokePropertyChanged();
+                }
+            }
+        }
+
+        public int CookbookId
+        {
+            get { return _cookbookId; }
+            set
+            {
+                if (_cookbookId != value)
+                {
+                    _cookbookId = value;
                     InvokePropertyChanged();
                 }
             }

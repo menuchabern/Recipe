@@ -2,6 +2,7 @@ create or alter procedure dbo.RecipeGet(
 	@All bit = 0,
 	@RecipeName varchar(40) = '',
 	@IncludeBlank int = 0,
+	@CookbookId int = 0,
 	@RecipeID int = 0
 )
 as 
@@ -20,7 +21,7 @@ begin
 	or (@recipeName <> '' and r.recipeName like '%' + @recipeName + '%')
 	or r.RecipeID = @RecipeID
 	group by r.recipeid, r.recipename, r.recipestatus, u.username, r.calories,  r.datedrafted, r.datearchived, r.datepublished, c.cuisine, r.usernameid, r.cuisineid, r.vegan, ri.RecipeIngredientId
-	union select 0, '', '', '', 0, 0, 0, 0, 0, '', 0, 0, '', 0 
+	union select 0, '', '', '', 0, 0, 0, 0, 0, '', 0, 0, '', 0
 	where @includeblank = 1
 	order by r.RecipeStatus desc
 
